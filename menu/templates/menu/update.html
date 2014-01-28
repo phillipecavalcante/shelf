@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update" />
+</form>
+
+<a href="{% url 'menu:index' %}" class="btn btn-primary" role="button">
+<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Voltar
+</a>
+{% endblock %}

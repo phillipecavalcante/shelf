@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+	<ol class="breadcrumb">
+  		<li><a href="#">Home</a></li>
+  		<li><a href="#">Library</a></li>
+  		<li class="active">Data</li>
+	</ol>
+{% endblock %}
+
+{% block content %}
+
+<h1>
+	Page view
+</h1>
+
+<p></p>
+
+<div class="form-group">
+	<label>Menu item:</label>
+	{{ page.menuitem.name }}
+</div>
+<div class="form-group">
+	<label>Name:</label>
+	{{ page.title|safe }}
+</div>
+
+<div class="form-group">
+{{ page.content|safe }}
+</div>
+
+<p>
+</p>
+
+<a href="{% url 'pages:index' %}" class="btn btn-default" role="button">
+	<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Back
+</a>
+
+<p class="push-right">
+	<a href="{% url 'pages:update' page.id %}" class="btn btn-primary" role="button">
+	<i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Edit page
+	</a>
+</p>
+
+
+{% endblock %}

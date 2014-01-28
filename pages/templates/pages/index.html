@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load mptt_tags %}
+
+
+{% block breadcrumb %}
+	<ol class="breadcrumb">
+	<li>
+		{% for parent in page.get_ancestors %}
+	 		 <a href="{{ parent }}">{{ parent.name }}</a> &gt;
+		{% endfor %}
+		{{ category.name }}
+	<li>
+	</ol>
+{% endblock %}
+            
+{% block content %}
+<h1>
+	Pages
+	<p class="lead">Create a page and add it to menu.</p>
+</h1>
+
+<a href="{% url 'pages:create' %}" class="btn btn-primary" role="button">
+<i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Create page
+</a>
+
+<p>
+{% if list %}
+	<div class="table-responsive">
+  		<table class="table table-hover">
+  			<tr>
+  				<th>
+  					#
+  				</th>
+  				<th>
+  					Menu item
+  				</th>
+  				<th>
+  					Name
+  				</th>
+  				<th>
+  					Is published?
+  				</th>
+  			</tr>
+  			{% for item in list %}
+  				<tr>
+  					<td>
+  						{{ forloop.counter }}
+  					</td>
+  					<td>
+  						{{ item.menuitem.name }}
+  					</td>
+  					<td>
+  						<a href="{% url 'pages:retrieve' item.id %}">{{ item.title }}</a>
+  					</td>
+  					<td>
+  						{% if item.is_visible %}
+							<span class="label label-danger">PUBLISHED</span>
+						{% else %}
+							<span class="label label-default">UNPUBLISHED</span>
+						{% endif %}
+  					</td>
+  				</tr>
+  			{% endfor %}
+  		</table>
+  	</div>
+{% endif %}
+</p>
+<p class="pull-right">
+<span class="badge">{{ list.count }}</span> páginas
+</p>
+
+{% endblock %}

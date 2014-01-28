@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load webdesign %}
+
+{% block content %}
+
+{{ menu.name }}
+
+
+
+<a href="{% url 'menu:index' %}"> voltar</a>
+{% endblock %}
