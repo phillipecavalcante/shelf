@@ -1,12 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<h2>
+	Edit Menu item
+</h2>
+
 <form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update" />
+    {{ form.non_field_errors }}
+        <div class="form-group">
+        {{ form.name.errors }}
+    	<label>Name:</label>
+    	{{ form.name }}
+    </div>
+    <div class="form-group">
+        {{ form.parent.errors }}
+        <label for="id_subject">Parent:</label>
+        {{ form.parent }}
+    </div>
+    <div class="form-group">
+        {{ form.visible.errors }}
+        <label for="id_subject">Is visible?</label>
+        {{ form.visible }}
+    </div>
+    
+    <button type="submit" class="btn btn-primary pull-right">Update</button>
 </form>
 
-<a href="{% url 'menu:index' %}" class="btn btn-primary" role="button">
-<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Voltar
-</a>
+<p></p>
+
+
+<ul class="pager">
+	<li class="previous">
+		<a href="{% url 'menu:retrieve' menu.pk %}">
+			<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Cancel
+		</a>
+	</li>
+</ul>
+
+
 {% endblock %}

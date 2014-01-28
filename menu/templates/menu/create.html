@@ -4,11 +4,11 @@
 
 <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Create" />
+    <button type="submit" class="btn btn-primary pull-right">Create</button>
 </form>
 
-<a href="{% url 'menu:index' %}" class="btn btn-primary" role="button">
-<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Voltar
+<a href="{% url 'menu:index' %}" class="btn btn-default" role="button">
+<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Cancel
 </a>
 {% endblock %}
 

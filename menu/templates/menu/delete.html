@@ -3,11 +3,47 @@
 
 {% block content %}
 
-<h1>Pages</h1>
+<h2>Menu</h2>
 
-<a href="{% url 'menu:create' %}" class="btn btn-primary" role="button">
-<i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;
-</a>
+DELETADO
+<div class="nav">
+	<a href="{% url 'menu:create' %}" class="btn btn-primary pull-right" role="button">
+		<i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Criar item de menu
+	</a>
+</div>
 
-menu deletado
+<p></p>
+
+{% if list %}
+	<div class="table-responsive">
+  		<table class="table table-hover">
+  			<tr>
+  				<th># (checkbox)</th>
+  				<th>Name</th>
+  				<th>Is published?</th>
+  			<tr>
+  			{% for item in list %}
+  				<tr>
+  					<td>
+  						{{ forloop.counter }}
+  					</td>
+  					<td>
+  						<a href="{% url 'menu:retrieve' item.id %}">{{ item.name }}</a>
+  					</td>
+  					<td>
+  						{% if item.is_visible %}
+							<span class="label label-danger">PUBLISHED</span>
+						{% else %}
+							<span class="label label-default">UNPUBLISHED</span>
+						{% endif %}
+  					</td>
+  					<td>
+  						remover
+  					</td>
+  				</tr>
+  			{% endfor %}
+  		</table>
+	</div>
+{% endif %}
+
 {% endblock %}

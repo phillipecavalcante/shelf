@@ -1,6 +1,5 @@
 from django import forms
 from pages.models import Page
-from menu.models import Menu
         
 class PageForm(forms.ModelForm):
     
@@ -11,7 +10,3 @@ class PageForm(forms.ModelForm):
     class Meta:
         model = Page
         
-        
-class ImageUploadForm(forms.Form):
-    """Image upload form."""
-    image = forms.ImageField()

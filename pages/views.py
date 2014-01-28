@@ -1,7 +1,7 @@
 from django.views import generic
 from pages.models import Page
-from pages.forms import PageForm, ImageUploadForm
-from django.core.urlresolvers import reverse, reverse_lazy
+from pages.forms import PageForm
+from django.core.urlresolvers import reverse
 
 class IndexView(generic.ListView):
     template_name = 'pages/index.html'
@@ -45,13 +45,3 @@ class DeleteView(generic.DeleteView):
     template_name = 'pages/delete.html'
     success_url = '/pages/'
     
-    
-def upload_pic(request):
-    if request.method == 'POST':
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            m = ExampleModel.objects.get(pk=course_id)
-            m.model_pic = form.cleaned_data['image']
-            m.save()
-            return HttpResponse('image upload success')
-    return HttpResponseForbidden('allowed only via POST')

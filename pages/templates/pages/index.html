@@ -19,9 +19,11 @@
 	<p class="lead">Create a page and add it to menu.</p>
 </h1>
 
-<a href="{% url 'pages:create' %}" class="btn btn-primary" role="button">
-<i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Create page
-</a>
+<div class="nav">
+	<a href="{% url 'pages:create' %}" class="btn btn-primary pull-right" role="button">
+		<i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Create page
+	</a>
+</div>
 
 <p>
 {% if list %}
