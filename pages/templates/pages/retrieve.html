@@ -10,37 +10,54 @@
 
 {% block content %}
 
-<h1>
+<h2>
 	Page view
-</h1>
+</h2>
+
+<div class="nav">
+	<a href="{% url 'pages:update' page.id %}" class="btn btn-primary pull-right" role="button">
+		<i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Edit page
+	</a>
+</div>
 
 <p></p>
 
-<div class="form-group">
-	<label>Menu item:</label>
-	{{ page.menuitem.name }}
+<div class="table-responsive">
+  		<table class="table table-hover">
+  			<tr>
+  				<th>
+  					Menu item
+  				</th>
+  				<th>
+  					Name
+  				</th>
+  			</tr>
+  				<tr>
+  					<td>
+  						{{ page.menuitem.name|default:"No" }}
+  					</td>
+  					<td>
+  						{{ page.title }}
+  					</td>
+  				</tr>
+  		</table>
 </div>
-<div class="form-group">
-	<label>Name:</label>
-	{{ page.title|safe }}
-</div>
+
+<p></p>
+
 
 <div class="form-group">
-{{ page.content|safe }}
+	{{ page.content|safe }}
 </div>
 
-<p>
-</p>
+<p></p>
 
-<a href="{% url 'pages:index' %}" class="btn btn-default" role="button">
-	<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Back
-</a>
-
-<p class="push-right">
-	<a href="{% url 'pages:update' page.id %}" class="btn btn-primary" role="button">
-	<i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;Edit page
-	</a>
-</p>
-
+<ul class="pager">
+	<li class="previous">
+		<a href="{% url 'pages:index' %}">
+			<i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Back
+		</a>
+	</li>
+</ul>
 
 {% endblock %}

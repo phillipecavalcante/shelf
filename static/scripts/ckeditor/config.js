@@ -10,4 +10,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.language = 'pt-br';
 	config.scayt_sLang = 'pt_BR';
 	//config.readOnly=true;
+	config.filebrowser = true;
+	config.filebrowserBrowseUrl = '/browser/browse.php';
+    config.filebrowserUploadUrl = '/uploader/upload.php';
 };

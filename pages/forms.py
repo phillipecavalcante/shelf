@@ -10,3 +10,8 @@ class PageForm(forms.ModelForm):
 
     class Meta:
         model = Page
+        
+        
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    image = forms.ImageField()
