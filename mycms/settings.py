@@ -133,12 +133,12 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'mptt',#trees
-    'account',
-    'menu',
-    'pages',
-    'filer',
+#     'account',
+    'gallery',
+#     'menu',
+#     'pages',
     'easy_thumbnails',
-    'website',
+#     'website',
 )
 
 
