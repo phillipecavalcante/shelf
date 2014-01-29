@@ -1,0 +1,63 @@
+{% load webdesign %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<!-- STYLES -->
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	</head>
+	<body>	
+	
+	<div class="container">
+		{% lorem 2 p %}
+	</div>	
+	
+	
+	<div class="container">
+	
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			    <ul class="nav navbar-nav">
+				{% for item in list %}
+					<li><a href="{% url 'website:page' item.pk %}">{{ item.name }}</a></li>
+				{% endfor %}
+				</ul>
+			</div>
+		</nav>
+
+	
+		<div class="row">
+			<div class="col-md-12">
+				{% block content %}
+				{% endblock %}
+			</div>
+		</div>
+	</div>
+	
+    
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<p>TechSim</p>
+					<p>
+				  		TechSim – CNPJ: 04.032.716/0001-21 – Av. Quintino Bocaiúva, 325 – SL 411 - Bairro São Francisco – Niterói, RJ – 24360-022
+				  	</p>
+				</div>
+			 </div>
+	  	</div>
+	</footer> 
+				
+		<!-- SCRIPTS -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		<script src="{{ STATIC_URL }}scripts/ckeditor/ckeditor.js"></script>
+		<script>
+			CKEDITOR.replace( 'id_content');
+		</script>        
+            
+	</body>
+</html>

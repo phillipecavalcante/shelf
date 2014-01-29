@@ -3,17 +3,17 @@ from mptt.models import MPTTModel, TreeForeignKey
 from timestamp.models import Timestamp
 
 class Menu(MPTTModel, Timestamp):
-    name = models.CharField(max_length=50, unique=True)
+    
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')
-    visible = models.BooleanField()
+    name = models.CharField(max_length=30, unique=True, blank=False, null=False)
+    position = models.PositiveSmallIntegerField(unique=True, default=0, blank=False, null=False)
+    public = models.BooleanField(default=False, blank=False, null=False)
     
     def __unicode__(self):
         return self.name
     
-    def is_visible(self):
-        return self.visible
-    is_visible.boolean = True
-    is_visible.short_description = 'Is visible?'
+    def is_public(self):
+        return self.public
     
     class MPTTMeta:
         order_insertion_by = ['name']

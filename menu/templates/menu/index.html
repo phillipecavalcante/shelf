@@ -5,9 +5,9 @@
 
 <h2>Menu</h2>
 
-<div class="nav">
+<div class="btn-toolbar" role="toolbar">
 	<a href="{% url 'menu:create' %}" class="btn btn-primary pull-right" role="button">
-		<i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Criar item de menu
+		<i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Create
 	</a>
 </div>
 
@@ -17,9 +17,10 @@
 	<div class="table-responsive">
   		<table class="table table-hover">
   			<tr>
-  				<th># (checkbox)</th>
+  				<th>#</th>
   				<th>Name</th>
-  				<th>Is published?</th>
+  				<th>Level</th>
+  				<th></th>
   			<tr>
   			{% for item in list %}
   				<tr>
@@ -30,19 +31,29 @@
   						<a href="{% url 'menu:retrieve' item.id %}">{{ item.name }}</a>
   					</td>
   					<td>
-  						{% if item.is_visible %}
-							<span class="label label-danger">PUBLISHED</span>
-						{% else %}
-							<span class="label label-default">UNPUBLISHED</span>
-						{% endif %}
+  						{{ item.level }}
   					</td>
   					<td>
-  						remover
+  						<div class="btn-toolbar" role="toolbar">
+  							{% if item.is_visible %}
+								<span class="label label-danger">ON</span>
+							{% else %}
+								<span class="label label-default">OFF</span>
+							{% endif %}
+  							<a href="{% url 'menu:update' item.pk %}" class="text-warning">
+								<i class="fa fa-pencil-square-o fa-lg"></i>
+							</a>
+	  						<a href="{% url 'menu:delete' item.pk %}" class="text-danger">
+				  				<i class="fa fa-trash-o fa-lg"></i>
+							</a>
+						</div>
   					</td>
   				</tr>
   			{% endfor %}
   		</table>
 	</div>
 {% endif %}
-
+<p class="pull-right">
+	<span class="badge">{{ list.count }}</span> itens
+</p>
 {% endblock %}

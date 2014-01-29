@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^menu/', include('menu.urls', namespace='menu')),
     url(r'^pages/', include('pages.urls', namespace='pages')),
     url(r'^account/', include('account.urls', namespace='account')),
+    url(r'^', include('website.urls', namespace='website')),
 )

@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'pages',
     'filer',
     'easy_thumbnails',
+    'website',
 )
 
 
