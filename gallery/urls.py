@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, url
-from gallery.views import ImageCreateView, ImageRetrieveView, GalleryCreateView, GalleryRetrieveView
+from gallery.views import ImageCreateView, ImageRetrieveView, CreateGallery,\
+    GalleryRetrieveView
 
 urlpatterns = patterns('',
-                      url(r'^create', GalleryCreateView.as_view(), name='gallery_create'),
+                      url(r'^create', CreateGallery.as_view(), name='gallery_create'),
                       url(r'^(?P<pk>\d+)$', ImageRetrieveView.as_view(), name='retrieve'),
                       url(r'^image/create', ImageCreateView.as_view(), name='image_create'),
                       url(r'^gallery/(?P<pk>\d+)$', GalleryRetrieveView.as_view(), name='gretrieve'),

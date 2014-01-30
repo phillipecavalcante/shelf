@@ -1,6 +1,7 @@
 from django.views import generic
 from gallery.models import Image, Gallery
 from django.core.urlresolvers import reverse
+from gallery.forms import GalleryForm
 
 
 
@@ -24,9 +25,10 @@ class ImageRetrieveView(generic.DetailView):
         return reverse('gallery:gallery_create')
     
     
-class GalleryCreateView(generic.CreateView):
+class CreateGallery(generic.CreateView):
     model = Gallery
     template_name = 'gallery/gallery_create.html'
+    form_class = GalleryForm
     
     def get_success_url(self):
         return reverse('gallery:image_create')
