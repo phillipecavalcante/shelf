@@ -3,7 +3,7 @@ from django.db import models
 
 class Descriptor(models.Model):
     
-    name = models.CharField(max_length=255, blank=False, null=False)
+    name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     url = models.URLField(blank=True, null=True)
     

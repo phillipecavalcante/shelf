@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load imagekit staticfiles %}
+
+{% block content %}
+<ul>
+	<li>{{ gallery.name }}</li>
+	<li>{{ gallery.description }}</li>
+	<li>{{ gallery.url|urlize }}</li>
+</ul>
+
+<div class="btn-toolbar" role="toolbar">
+	<a href="{% url 'gallery:update' gallery.pk %}" class="btn btn-primary pull-right" role="button">
+		<i class="fa fa-plus"></i>Update
+	</a>
+	<a href="{% url 'gallery:index' %}" class="btn btn-primary pull-right" role="button">
+		<i class="fa fa-plus"></i>Voltar para  a lista
+	</a>
+	
+	<a href="{% url 'gallery:delete' gallery.pk %}" class="btn btn-primary pull-right" role="button">
+		<i class="fa fa-plus"></i>delete
+	</a>
+</div>
+
+<form enctype="multipart/form-data" action="{% url 'gallery:image_create' %}" method="post" class="form">{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-plus fa-lg"></i> Add</button>
+</form>
+
+
+{% if list %}
+	{% for item in list %}
+		{{ item.name }}
+		<img src="{{ item.image.url }}">
+	{% endfor %}
+{% else %}
+No images found.
+{% endif %}
+{% endblock %}

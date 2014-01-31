@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-
+import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -16,7 +16,11 @@ urlpatterns = patterns('',
     #url(r'^admin/', include(admin.site.urls)),
 #     url(r'^menu/', include('menu.urls', namespace='menu')),
 #     url(r'^pages/', include('pages.urls', namespace='pages')),
-    url(r'^gallery/', include('gallery.urls', namespace='gallery')),
+    url(r'^gallery/', include('apps.gallery.urls', namespace='gallery')),
 #     url(r'^account/', include('account.urls', namespace='account')),
 #     url(r'^', include('website.urls', namespace='website')),
 )
+
+urlpatterns += patterns(
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    )
