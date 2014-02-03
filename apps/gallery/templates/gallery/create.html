@@ -1,8 +1,13 @@
-{% extends "base.html" %}
+{% extends "dashboard_template.html" %}
 
-{% block content %}
+{% block dashboard_content %}
 <form action="" method="post" class="form">{% csrf_token %}
-	{{ form.as_p }}
+	<div class="form-inline">
+		{{ form.name }}
+		{{ form.url }}
+	</div>
+	{{ form.description }}
+	
 	<button type="submit" class="btn btn-primary pull-right">Create f</button>
 </form>
 {% endblock %}

@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "dashboard_template.html" %}
 
-{% block content %}
+{% block dashboard_content %}
 
 <form action="{% url 'gallery:create' %}" method="post" class="form">{% csrf_token %}
 	{{ form.name }}
