@@ -2,23 +2,15 @@
 {% load imagekit %}
 
 {% block dashboard_title %}
-	<div class="page-header">
-		<h1>
-			{{ gallery.name }}
-		</h1>
-		<p>
-			{{ gallery.url|urlize}}
-		</p>
-		<p class="lead">
-			{{ gallery.description|truncatewords:5 }}
-		</p>
-	</div>
+	<h1 class="page-header">
+		Images
+	</h1>
 {% endblock %}
 
 {% block dashboard_content %}
 	<div class="row-fluid">
 		<div class="col-md-12">
-			<form enctype="multipart/form-data" action="{% url 'gallery:image_create' %}" method="post" class="form">{% csrf_token %}
+			<form enctype="multipart/form-data" action="{% url 'images:create' %}" method="post" class="form">{% csrf_token %}
 				<div class="row-fluid">
 					{% for error in form.non_field.errors %}
 						<p class="text-danger">{{ error }}</p>
@@ -47,19 +39,18 @@
 			</form>
 		</div>
 	</div>
-	<p>&nbsp;</p>
+	<p>&nbsp;</p>	
 	<hr>
+	<p></p>
 	
 	<div class="row-fluid">
-		<div class="col-md-12">
-				{% if list %}
-				
+		<div class="col-md-12">			
 				<ul class="media-list">
 					{% for item in list %}
 						<li class="media">
 							<div class="row-fluid">
 								<div class="col-md-6">
-									<a class="pull-left" href="{% url 'gallery:image_retrieve' item.pk %}">
+									<a class="pull-left" href="{% url 'images:retrieve' item.pk %}">
 										{% thumbnail '100x100' item.image %}
 							    		<!--<img class="media-object" src="{{item.image_thumbnail.url}}" alt="{{ item.name }}">-->
 							  		</a>
@@ -70,33 +61,21 @@
 								</div>
 								<div class="col-md-6">
 									<div class="btn-toolbar" role="toolbar">
-										<form method="POST" action="{% url 'gallery:image_delete' item.pk %}">{% csrf_token %}
+										<form method="POST" action="{% url 'images:delete' item.pk %}">{% csrf_token %}
 										    <button type="submit" class="btn btn-link"><i class="fa fa-trash-o fa-lg"></i></button>
 										</form>
 									</div>
 								</div>
 						</li>
 						<hr>
+					{% empty %}
+					<p class="text-center">
+						No image found.
+					</p>
 					{% endfor %}
 				</ul>
-				{% else %}
-					No images found.
-				{% endif %}
- 
-{% endblock %}
-
-
-<div class="row">
-			<div class="col-md-12">
-				<div class="row">
-					<div class="col-md-8"></div>
-					<div class="col-md-4">
-						<div class="btn-toolbar" role="toolbar">
-							<a href="{% url 'gallery:update' gallery.slug %}" class="btn btn-primary" role="button">
-								<i class="fa fa-edit"></i> Update
-							</a>
-						</div>
-					</div>
-				</div>
+					
 			</div>
 		</div>
+	</div>
+{% endblock %}

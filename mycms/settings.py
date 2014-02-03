@@ -135,12 +135,15 @@ INSTALLED_APPS = (
     #===========================================================================
     # third
     #===========================================================================
+    'haystack',
     'imagekit',
     #===========================================================================
     # project
     #===========================================================================
 #     'account',
+    'apps.images',
     'apps.gallery',
+    'apps.exemplo',
 #     'menu',
 #     'pages',
     
@@ -184,3 +187,10 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters',
 )
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}

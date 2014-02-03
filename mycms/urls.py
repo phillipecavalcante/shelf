@@ -17,10 +17,14 @@ urlpatterns = patterns('',
 #     url(r'^menu/', include('menu.urls', namespace='menu')),
 #     url(r'^pages/', include('pages.urls', namespace='pages')),
     url(r'^gallery/', include('apps.gallery.urls', namespace='gallery')),
+    url(r'^images/', include('apps.images.urls', namespace='images')),
+    url(r'^search/', include('apps.exemplo.urls', namespace='search')),
 #     url(r'^account/', include('account.urls', namespace='account')),
 #     url(r'^', include('website.urls', namespace='website')),
 )
 
-urlpatterns += patterns(
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+
+if settings.DEBUG:
+    urlpatterns += patterns('django.views.static',
+        (r'media/(?P<path>.*)', 'serve', {'document_root': settings.MEDIA_ROOT}),
     )

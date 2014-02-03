@@ -1,6 +1,6 @@
 {% extends "dashboard_template.html" %}
 
-{% block content %}
+{% block dashboard_content %}
 <form action="" method="post" class="form">{% csrf_token %}
 	{{ form.as_p }}
 	<button type="submit" class="btn btn-primary pull-right">Update</button>
