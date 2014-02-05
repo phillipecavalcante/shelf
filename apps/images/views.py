@@ -26,7 +26,7 @@ class CreateAndListView(generic.CreateView):
     
     def get_context_data(self, **kwargs):
         context = super(CreateAndListView, self).get_context_data(**kwargs)
-        context['list'] = Image.objects.all()
+        context['list'] = Image.objects.all().order_by('gallery')
         
         return context
     
@@ -64,4 +64,4 @@ class DeleteView(generic.DeleteView):
     template_name = 'images/delete.html'
     
     def get_success_url(self):
-        return reverse('images:list')
+        return reverse('images:create_and_list')

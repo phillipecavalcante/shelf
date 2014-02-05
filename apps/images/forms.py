@@ -7,4 +7,4 @@ class ImageForm(forms.ModelForm):
 
     class Meta:
         model = Image
-        exclude = ('description', 'url', 'gallery')
+        exclude = ('description', 'url')

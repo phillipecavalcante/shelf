@@ -10,22 +10,29 @@
 {% block dashboard_content %}
 
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<form enctype="multipart/form-data" action="{% url 'images:create_and_list' %}" method="post" class="form">{% csrf_token %}
+				<!--NON FIELD ERROR-->
 				<div class="row">
 					<div class="col-md-12">
 						{% include "error_list.html" with error_list=form.non_field.errors %}
 					</div>
 				</div>
+				<!--NAME and GALLERY-->
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-6">
 						{{ form.name }}
 						{% include "error_list.html" with error_list=form.name.errors %}
 					</div>
+					<div class="col-md-6">
+							{{ form.gallery }}
+							{% include "error_list.html" with error_list=form.gallery.errors %}
+					</div>
 				</div>
 				<div class="row"><p></p></div>
+				<!--IMAGE-->
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						{{ form.image }}
 						{% include "error_list.html" with error_list=form.image.errors %}
 					</div>
@@ -46,7 +53,7 @@
 
 	<div class="row">
 		<div class="col-sm-8 col-md-4">	
-			<table class="table table-hover">
+			<table class="table table-hover table-condensed">
             	<thead></thead>
                 <tbody>
                 	{% for item in list %}
@@ -61,11 +68,10 @@
                         		</div>
                         	</td>
      						<td class="col-sm-1 col-md-1">
-                        		<button type="button" class="btn btn-danger">
-                            		<span class="glyphicon glyphicon-remove"></span> Remove
-                        		</button>
+                        		<a href="{% url 'images:delete' item.pk %}" class="btn btn-danger" role="button"><i class="fa fa-trash-o fa-lg"></i></a>
                         	</td>
                     	</tr>
+                    	
 					{% empty %}
 						<p class="text-center">
 							No image found.
