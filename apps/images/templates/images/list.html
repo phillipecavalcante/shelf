@@ -8,74 +8,71 @@
 {% endblock %}
 
 {% block dashboard_content %}
-	<div class="row-fluid">
-		<div class="col-md-12">
-			<form enctype="multipart/form-data" action="{% url 'images:create' %}" method="post" class="form">{% csrf_token %}
-				<div class="row-fluid">
-					{% for error in form.non_field.errors %}
-						<p class="text-danger">{{ error }}</p>
-					{% empty %}
-					{% endfor %}
-					<div class="col-md-4">
-						{% for error in form.name.errors %}
-							<p class="text-danger">{{ error }}</p>
-						{% empty %}
-						{% endfor %}
-						<p>
-							{{ form.name }}
-						</p>
-						{% for error in form.image.errors %}
-							<p class="text-danger">{{ error }}</p>
-						{% empty %}
-						{% endfor %}
-						<p>
-							{{ form.image }}
-						</p>
-						<input name="gallery" value="{{ gallery.pk }}" type="hidden">
-						</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<form enctype="multipart/form-data" action="{% url 'images:create_and_list' %}" method="post" class="form">{% csrf_token %}
+				<div class="row">
+					<div class="col-md-12">
+						{% include "error_list.html" with error_list=form.non_field.errors %}
 					</div>
-					<button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						{{ form.name }}
+						{% include "error_list.html" with error_list=form.name.errors %}
+					</div>
+				</div>
+				<div class="row"><p></p></div>
+				<div class="row">
+					<div class="col-md-6">
+						{{ form.image }}
+						{% include "error_list.html" with error_list=form.image.errors %}
+					</div>
+					<div class="col-md-6">
+						<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add</button>
+					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-	<p>&nbsp;</p>	
-	<hr>
-	<p></p>
 	
-	<div class="row-fluid">
-		<div class="col-md-12">			
-				<ul class="media-list">
-					{% for item in list %}
-						<li class="media">
-							<div class="row-fluid">
-								<div class="col-md-6">
-									<a class="pull-left" href="{% url 'images:retrieve' item.pk %}">
-										{% thumbnail '100x100' item.image %}
-							    		<!--<img class="media-object" src="{{item.image_thumbnail.url}}" alt="{{ item.name }}">-->
-							  		</a>
-							  		<div class="media-body">
-								    	<h4 class="media-heading">{{ item.name }}</h4>
-								    		{{ item.description }}
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="btn-toolbar" role="toolbar">
-										<form method="POST" action="{% url 'images:delete' item.pk %}">{% csrf_token %}
-										    <button type="submit" class="btn btn-link"><i class="fa fa-trash-o fa-lg"></i></button>
-										</form>
-									</div>
-								</div>
-						</li>
-						<hr>
+	<p>&nbsp;</p>	
+	
+	<hr>
+	
+	<p>&nbsp;</p>
+	
+
+	<div class="row">
+		<div class="col-sm-8 col-md-4">	
+			<table class="table table-hover">
+            	<thead></thead>
+                <tbody>
+                	{% for item in list %}
+                    	<tr>
+                        	<td class="col-sm-8 col-md-4">
+                        		<div class="media">
+                            		<a class="thumbnail pull-left" href="#">{% thumbnail '100x100' item.image %} </a>
+		                            <div class="media-body">
+		                                <h4 class="media-heading"><a href="#">{{ item.name }}</a></h4>
+		                                {{ item.gallery.name }}
+		                            </div>
+                        		</div>
+                        	</td>
+     						<td class="col-sm-1 col-md-1">
+                        		<button type="button" class="btn btn-danger">
+                            		<span class="glyphicon glyphicon-remove"></span> Remove
+                        		</button>
+                        	</td>
+                    	</tr>
 					{% empty %}
-					<p class="text-center">
-						No image found.
-					</p>
+						<p class="text-center">
+							No image found.
+						</p>
 					{% endfor %}
-				</ul>
-					
-			</div>
+				</tbody>
+            </table>
 		</div>
 	</div>
 {% endblock %}

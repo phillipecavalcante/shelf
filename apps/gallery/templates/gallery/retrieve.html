@@ -18,7 +18,7 @@
 {% block dashboard_content %}
 	<div class="row-fluid">
 		<div class="col-md-12">
-			<form enctype="multipart/form-data" action="{% url 'gallery:image_create' %}" method="post" class="form">{% csrf_token %}
+			<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
 				<div class="row-fluid">
 					{% for error in form.non_field.errors %}
 						<p class="text-danger">{{ error }}</p>

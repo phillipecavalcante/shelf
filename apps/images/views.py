@@ -2,24 +2,6 @@ from django.views import generic
 from apps.images.models import Image
 from django.core.urlresolvers import reverse
 from apps.images.forms import ImageForm
-from django.http.response import HttpResponseRedirect
-
-
-
-
-#===============================================================================
-# LIST
-#===============================================================================
-
-class ListView(generic.ListView):
-    model = Image
-    template_name = 'images/list.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super(ListView, self).get_context_data(**kwargs)
-        context['list'] = Image.objects.all()
-        context['form'] = ImageForm
-        return context
 
 
 #===============================================================================
@@ -37,15 +19,19 @@ class ListView(generic.ListView):
 # CREATE
 #===============================================================================
 
-class CreateView(generic.CreateView):
+class CreateAndListView(generic.CreateView):
     model = Image
     template_name = 'images/list.html'
+    form_class = ImageForm
     
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
+    def get_context_data(self, **kwargs):
+        context = super(CreateAndListView, self).get_context_data(**kwargs)
+        context['list'] = Image.objects.all()
+        
+        return context
     
     def get_success_url(self):
-        return reverse('images:retrieve', kwargs={self.pk_url_kwarg: self.object.pk})
+        return reverse('images:create_and_list')
     
 #===============================================================================
 # RETRIEVE
@@ -78,4 +64,4 @@ class DeleteView(generic.DeleteView):
     template_name = 'images/delete.html'
     
     def get_success_url(self):
-        return reverse('images:index')
+        return reverse('images:list')

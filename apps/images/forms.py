@@ -3,10 +3,8 @@ from apps.images.models import Image
         
 class ImageForm(forms.ModelForm):
     
-    name = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'name'}))
-    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'class':'form-control'}))
-    url = forms.URLField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'type':'url'}))
-    gallery = forms.CharField(widget=forms.HiddenInput())
-    
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Image name'}))
+
     class Meta:
         model = Image
+        exclude = ('description', 'url', 'gallery')
