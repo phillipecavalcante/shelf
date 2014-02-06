@@ -2,7 +2,7 @@ from django.views import generic
 from apps.images.models import Image
 from django.core.urlresolvers import reverse
 from apps.images.forms import ImageForm
-
+from django.views.generic.detail import SingleObjectMixin
 
 #===============================================================================
 # 
@@ -16,7 +16,7 @@ from apps.images.forms import ImageForm
 
 
 #===============================================================================
-# CREATE
+# CREATE AND LIST
 #===============================================================================
 
 class CreateAndListView(generic.CreateView):
@@ -34,26 +34,16 @@ class CreateAndListView(generic.CreateView):
         return reverse('images:create_and_list')
     
 #===============================================================================
-# RETRIEVE
+# RETRIEVE AND UPDATE
 #===============================================================================
 
-class RetrieveView(generic.DetailView):
-    model = Image
-    template_name = 'images/retrieve.html'
-    
-    def get_success_url(self):
-        return reverse('images:retrieve', kwargs={self.pk_url_kwarg: self.object.pk})
-    
-#===============================================================================
-# UPDATE
-#===============================================================================
-
-class UpdateView(generic.UpdateView):
+class RetrieveAndUpdateView(generic.UpdateView):
     model = Image
     template_name = 'images/update.html'
+    form_class = ImageForm
     
     def get_success_url(self):
-        return reverse('images:retrieve', kwargs={self.pk_url_kwarg: self.object.pk})
+        return reverse('images:update', kwargs={self.pk_url_kwarg: self.object.pk})
     
 #===============================================================================
 # DELETE
@@ -63,5 +53,19 @@ class DeleteView(generic.DeleteView):
     model = Image
     template_name = 'images/delete.html'
     
+    
     def get_success_url(self):
         return reverse('images:create_and_list')
+    
+    
+class ImageAddView(SingleObjectMixin, generic.FormView):
+    template_name = 'books/author_detail.html'
+    form_class = ImageForm
+    model = Image
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super(ImageAddView, self).post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('images:update', kwargs={self.pk_url_kwarg: self.object.pk})

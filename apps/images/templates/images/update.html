@@ -1,4 +1,49 @@
-<form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
-	{{ form.as_p }}
-    <button type="submit" class="btn btn-primary pull-right">Create</button>
+{% extends 'dashboard_template.html' %}
+{% load imagekit staticfiles %}
+
+{% block dashboard_title %}
+	<h1 class="page-header">
+		Images
+	</h1>
+{% endblock %}
+
+
+{% block dashboard_content %}
+<form enctype="multipart/form-data" action="{% url 'images:create_and_list' %}" method="post" class="form">{% csrf_token %}
+				<!--NON FIELD ERROR-->
+				<div class="row">
+					<div class="col-md-12">
+						{% include "error_list.html" with error_list=form.non_field.errors %}
+					</div>
+				</div>
+				<!--NAME and GALLERY-->
+				<div class="row">
+					<div class="col-md-6">
+						{{ form.name }}
+						{% include "error_list.html" with error_list=form.name.errors %}
+					</div>
+					<div class="col-md-6">
+							{{ form.gallery }}
+							{% include "error_list.html" with error_list=form.gallery.errors %}
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-6">
+						{{ form.description }}
+						{% include "error_list.html" with error_list=form.description.errors %}
+					</div>
+				</div>
+				<!--IMAGE-->
+				<div class="row">
+					<div class="col-md-4">
+						renderizar imagem aqui 
+						{{ form.image }}
+						{% include "error_list.html" with error_list=form.image.errors %}
+					</div>
+					<div class="col-md-6">
+						<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add</button>
+					</div>
+				</div>
 </form>
+{% endblock %}

@@ -1,19 +1,43 @@
 {% extends "dashboard_template.html" %}
+{% load imagekit %}
 
+{% block dashboard_title %}
+	<h1 class="page-header">
+		Images
+	</h1>
+	<hr>
+{% endblock %}
 
 {% block dashboard_content %}
 
-<form action="" method="post">{% csrf_token %}
-    <p class="lead">Are you sure you want to delete item "{{ object }}"?</p>
-    
-    <div class="pull-right">
-		<p class="btn-toolbar">
-			<a href="{% url 'images:create_and_list' %}" class="btn btn-default">
-			  	No
-			</a>
-			<button type="submit" class="btn btn-danger">Yes</button>
-		</p>
+<div class="row">
+	<div class="col-md-4">
+		<div class="row">
+			<div class="media">
+			<a class="thumbnail pull-left" href="#">{% thumbnail '100x100' object.image %} </a>
+	        <div class="media-body">
+	            <h4 class="media-heading"><a href="#">{{ object.name }}</a></h4>
+	            {{ object.gallery.name }}
+	        </div>
+	        </div>
+		</div>
+		<div class="row">
+			<div class="col-md-10">
+			<form action="" method="post">{% csrf_token %}
+			    <p class="lead">Are you sure you want to delete "{{ object }}"?</p>
+			    
+			    <div class="pull-right">
+					<p class="btn-toolbar">
+						<a href="{% url 'images:create_and_list' %}" class="btn btn-default">
+						  	No
+						</a>
+						<button type="submit" class="btn btn-danger">Yes</button>
+					</p>
+				</div>
+			</form>
+			</div>
+		</div>
 	</div>
-</form>
+</div>
 
 {% endblock %}

@@ -1,71 +1,64 @@
 from django.views import generic
 from apps.gallery.models import Gallery
 from apps.images.models import Image
-from django.core.urlresolvers import reverse, reverse_lazy
-from apps.gallery.forms import GalleryForm, ImageForm
+from django.core.urlresolvers import reverse
+from apps.gallery.forms import GalleryForm
+from apps.images.forms import ImageForm
+
+
+#===============================================================================
+# 
+#===============================================================================
+#===============================================================================
+# CRUD
+#===============================================================================
+#===============================================================================
+# 
+#===============================================================================
 
 
 
 #===============================================================================
-# LIST VIEW
+# CREATE AND LIST
 #===============================================================================
 
-class GalleryList(generic.ListView):
+class CreateAndListView(generic.CreateView):
     model = Gallery
-    template_name = 'gallery/index.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super(GalleryList, self).get_context_data(**kwargs)
-        context['list'] = Gallery.objects.all()
-        context['form'] = GalleryForm()
-        return context
-
-
-#===============================================================================
-# CREATE VIEW
-#===============================================================================
-
-class GalleryCreate(generic.CreateView):
-    model = Gallery
-    template_name = 'gallery/create.html'
+    template_name = 'gallery/create_and_list.html'
     form_class = GalleryForm
     
     
-    def get_success_url(self):
-        return reverse('gallery:index')
-
-
-
-
-#===============================================================================
-# RETRIEVE VIEW
-#===============================================================================
-
-class GalleryRetrieve(generic.DetailView):
-    model = Gallery
-    template_name = 'gallery/retrieve.html'
-    
     def get_context_data(self, **kwargs):
-        context = super(GalleryRetrieve, self).get_context_data(**kwargs)
-        context['list'] = Image.objects.filter(gallery=Gallery.objects.get(pk=self.object.pk))
-        context['form'] = ImageForm
+        context = super(CreateAndListView, self).get_context_data(**kwargs)
+        context['list'] = Gallery.objects.all()
+        
         return context
     
     def get_success_url(self):
-        return reverse('gallery:retrieve', kwargs={self.pk_url_kwarg: self.object.pk})
-    
+        return reverse('gallery:create_and_list')
+
+
 
     
 #===============================================================================
-# UPDATE VIEW
+# UPDATE AND CREATE IMAGE VIEW
 #===============================================================================
 
-class GalleryUpdate(generic.UpdateView):
+class CreateAndListImageView(generic.DetailView):
     model = Gallery
-    template_name = 'gallery/update.html'
+    template_name = 'gallery/create_and_list_images.html'
     
+    
+    def get_context_data(self, **kwargs):
+        context = super(CreateAndListImageView, self).get_context_data(**kwargs)
+        context['list'] = Image.objects.filter(gallery=Gallery.objects.get(slug=self.object.slug))
+        context['form'] = ImageForm
+        
+        return context
+        
     def get_success_url(self):
-        return reverse('gallery:retrieve', kwargs={self.slug_url_kwarg: self.object.slug})
+        
+        return reverse('gallery:create_and_list_images', kwargs={self.slug_url_kwarg: self.object.slug})
 
 #===============================================================================
 # DELETE VIEW    
@@ -77,5 +70,5 @@ class GalleryDelete(generic.DeleteView):
     
     
     def get_success_url(self):
-        return reverse('gallery:index')
+        return reverse('gallery:create_and_list')
     

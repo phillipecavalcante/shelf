@@ -9,7 +9,7 @@
 {% block dashboard_content %}
 	<div class="row-fluid">
 		<div class="col-md-12">
-			<form action="{% url 'gallery:create' %}" method="post" class="form">{% csrf_token %}
+			<form action="{% url 'gallery:create_and_list' %}" method="post" class="form">{% csrf_token %}
 				{% for error in form.non_field.errors %}
 					<p class="text-danger">{{ error }}</p>
 				{% empty %}
@@ -51,13 +51,11 @@
 				  						{{ forloop.counter }}
 				  					</td>
 				  					<td>
-				  						<a href="{% url 'gallery:retrieve' item.slug %}">{{ item.name }}</a>
+				  						<a href="{% url 'gallery:create_and_list_images' item.slug %}">{{ item.name }}</a>
 				  					</td>
 				  					<td>
 				  						<div class="btn-toolbar" role="toolbar">
-											<form method="POST" action="{% url 'gallery:delete' item.slug %}">{% csrf_token %}
-											    <button type="submit" class="btn btn-link"><i class="fa fa-trash-o fa-lg"></i></button>
-											</form>
+											<a href="{% url 'gallery:delete' item.slug %}" class="btn btn-danger" role="button"><i class="fa fa-trash-o fa-lg"></i></a>
 										</div>
 				  					</td>
 				  				</tr>

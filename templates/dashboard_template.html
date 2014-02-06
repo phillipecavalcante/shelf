@@ -8,10 +8,14 @@
 		<title></title>
 		<meta charset="utf-8">
     	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
 		<!-- STYLES -->
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-		<link href="{{ STATIC_URL }}styles/sb-admin/sb-admin.css" rel="stylesheet">
+
+			<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+			<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+			<link href="{{ STATIC_URL }}styles/sb-admin/sb-admin.css" rel="stylesheet">
+
+		
 	</head>
 	<body >
 
@@ -275,13 +279,13 @@
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                     </li>
                     <li>
-                        <a href="{% url 'gallery:index' %}"><i class="fa fa-edit fa-fw"></i> Gallery<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-edit fa-fw"></i> Gallery<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                         	<li>
-                                <a href="{% url 'gallery:index' %}">List Galleries</a>
+                                <a href="{% url 'gallery:create_and_list' %}">Galleries</a>
                             </li>
                             <li>
-                                <a href="{% url 'gallery:create' %}">Create Gallery</a>
+                                <a href="{% url 'images:create_and_list' %}">Images</a>
                             </li>
                         </ul>
                     </li>
@@ -383,7 +387,7 @@
 		<script src="{{ STATIC_URL }}scripts/sb-admin/sb-admin.js"></script>
 		<script>
 			CKEDITOR.replace( 'id_content');
-		</script>        
+		</script>      
             
 	</body>
 </html>
