@@ -19,19 +19,19 @@ from django.views.generic.detail import SingleObjectMixin
 # CREATE AND LIST
 #===============================================================================
 
-class CreateAndListView(generic.CreateView):
+class IndexView(generic.CreateView):
     model = Image
-    template_name = 'images/list.html'
+    template_name = 'images/index.html'
     form_class = ImageForm
     
     def get_context_data(self, **kwargs):
-        context = super(CreateAndListView, self).get_context_data(**kwargs)
-        context['list'] = Image.objects.all().order_by('gallery')
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['object_list'] = Image.objects.all().order_by('gallery')
         
         return context
     
     def get_success_url(self):
-        return reverse('images:create_and_list')
+        return reverse('images:index')
     
 #===============================================================================
 # RETRIEVE AND UPDATE
