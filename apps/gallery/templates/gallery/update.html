@@ -3,15 +3,19 @@
 
 {% block dashboard_title %}
 	<h1 class="page-header">
-		Images
+		{{ gallery.name }}
 	</h1>
-	<hr>
 {% endblock %}
 
 {% block dashboard_content %}
+<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit" class="btn btn-primary pull-right">Update</button>
+</form>
 
 <div class="row">
-	<div class="col-sm-4 col-md-2">
+		{% for object in object_list %}
+  			<div class="col-sm-4 col-md-2">
     			<div class="thumbnail">
     				<p class="pull-right">
     					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %}">{{ object.public|yesno:"published, unpublished" }}</span>
@@ -31,26 +35,18 @@
 	        					<p>&nbsp;</p>
 	        				{% endif %}
 	        		</div>		
+	        				<div class="btn-toolbar" role="toolbar">
+	        					<a href="{% url 'images:update' object.slug  %}" class="btn btn-default" role="button"><i class="fa fa-edit fa-lg"></i></a>
+	        					<a href="{% url 'images:delete' object.slug  %}" class="btn btn-danger" role="button"><i class="fa fa-trash-o fa-lg"></i></a>
+	        				</div>
+	     			 
 	    		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-4">
-	<form action="" method="post">{% csrf_token %}
-	    <p class="lead">Are you sure you want to delete "{{ object|title }}"?</p>
-	    
-	    <div class="pull-right">
-			<p class="btn-toolbar">
-				<a href="{% url 'images:index' %}" class="btn btn-default">
-				  	No
-				</a>
-				<button type="submit" class="btn btn-danger">Yes</button>
+  			</div>
+  		{% empty %}
+			<p class="text-center">
+				No image found.
 			</p>
-		</div>
-	</form>
+		{% endfor %}
 	</div>
-</div>
-	
 
 {% endblock %}

@@ -12,3 +12,4 @@ class Image(Timestamp, Descriptor):
                                      options={'quality':100})
     
     gallery = models.ForeignKey(Gallery, blank=True, null=True)
+        

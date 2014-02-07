@@ -1,5 +1,5 @@
 {% extends 'dashboard_template.html' %}
-{% load imagekit staticfiles %}
+{% load imagekit %}
 
 {% block dashboard_title %}
 	<h1 class="page-header">
@@ -9,41 +9,83 @@
 
 
 {% block dashboard_content %}
-<form enctype="multipart/form-data" action="{% url 'images:create_and_list' %}" method="post" class="form">{% csrf_token %}
-				<!--NON FIELD ERROR-->
-				<div class="row">
-					<div class="col-md-12">
-						{% include "error_list.html" with error_list=form.non_field.errors %}
-					</div>
-				</div>
-				<!--NAME and GALLERY-->
-				<div class="row">
-					<div class="col-md-6">
-						{{ form.name }}
-						{% include "error_list.html" with error_list=form.name.errors %}
-					</div>
-					<div class="col-md-6">
-							{{ form.gallery }}
-							{% include "error_list.html" with error_list=form.gallery.errors %}
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-md-6">
-						{{ form.description }}
-						{% include "error_list.html" with error_list=form.description.errors %}
-					</div>
-				</div>
-				<!--IMAGE-->
-				<div class="row">
-					<div class="col-md-4">
-						renderizar imagem aqui 
-						{{ form.image }}
-						{% include "error_list.html" with error_list=form.image.errors %}
-					</div>
-					<div class="col-md-6">
-						<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add</button>
-					</div>
-				</div>
-</form>
+
+<div class="row">
+	<div class="col-md-6">
+		<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
+						<!--NON FIELD ERROR-->
+						<div class="row">
+							<div class="col-md-12">
+								{% include "error_list.html" with error_list=form.non_field.errors %}
+							</div>
+						</div>
+						<!--NAME and GALLERY-->
+						<div class="row">
+							<div class="col-md-12">
+								<p>
+									<label>Name:</label>
+									{{ form.name }}
+								</p>
+								{% include "error_list.html" with error_list=form.name.errors %}
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<p>
+									<label>Description:</label>
+									{{ form.description }}
+								</p>
+								{% include "error_list.html" with error_list=form.description.errors %}
+							</div>
+						</div>
+						<!--IMAGE-->
+						<div class="row">
+							<div class="col-md-12">
+								renderizar imagem aqui
+								<p>
+									<label>Image:</label> 
+									{{ form.image }}
+								</p>
+								{% include "error_list.html" with error_list=form.image.errors %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<p>
+									<label>URL:</label>
+									{{ form.url }}
+								</p>
+								{% include "error_list.html" with error_list=form.url.errors %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<p>
+									<label>Gallery:</label>
+									{{ form.gallery }}
+								</p>
+								{% include "error_list.html" with error_list=form.gallery.errors %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<p>
+									<label>Public?:</label>
+									{{ form.public }}
+								</p>
+								{% include "error_list.html" with error_list=form.public.errors %}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-edit fa-lg"></i> Edit</button>
+							</div>
+						</div>
+		</form>
+		<div class="btn-toolbar">
+			<a href="{% url 'images:index' %}" class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+		</div>
+	</div>
+</div>
 {% endblock %}

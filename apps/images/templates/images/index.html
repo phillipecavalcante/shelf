@@ -10,9 +10,8 @@
 {% block dashboard_content %}
 
 	<div class="row">
-		<div class="col-md-6">
-			<form enctype="multipart/form-data" action="{% url 'images:index' %}" method="post" class="form">{% csrf_token %}
-				<!--NON FIELD ERROR-->
+		<div class="col-md-4">
+			<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
 				<div class="row">
 					<div class="col-md-12">
 						{% include "error_list.html" with error_list=form.non_field.errors %}
@@ -20,23 +19,35 @@
 				</div>
 				<!--NAME and GALLERY-->
 				<div class="row">
-					<div class="col-md-6">
-						{{ form.name }}
+					<div class="col-md-12">
+						<p>
+							<label>Name:</label>
+							{{ form.name }}
+						</p>
 						{% include "error_list.html" with error_list=form.name.errors %}
 					</div>
-					<div class="col-md-6">
-							{{ form.gallery }}
+				</div>
+				<!--IMAGE-->
+				<div class="row">
+					<div class="col-md-12">
+						<p>
+							<label>Image:</label>
+							{{ form.image }}
+						</p>
+						{% include "error_list.html" with error_list=form.image.errors %}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+							<p>
+								<label>Gallery:</label>
+								{{ form.gallery }}
+							</p>
 							{% include "error_list.html" with error_list=form.gallery.errors %}
 					</div>
 				</div>
-				<div class="row"><p></p></div>
-				<!--IMAGE-->
 				<div class="row">
-					<div class="col-md-4">
-						{{ form.image }}
-						{% include "error_list.html" with error_list=form.image.errors %}
-					</div>
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add</button>
 					</div>
 				</div>
@@ -50,35 +61,41 @@
 	
 	<p>&nbsp;</p>
 	
-
 	<div class="row">
-		<div class="col-sm-8 col-md-4">	
-			<table class="table table-hover table-condensed">
-            	<thead></thead>
-                <tbody>
-                	{% for item in object_list %}
-                    	<tr>
-                        	<td class="col-sm-8 col-md-4">
-                        		<div class="media">
-                            		<a class="thumbnail pull-left" href="#">{% thumbnail '100x100' item.image %} </a>
-		                            <div class="media-body">
-		                                <h4 class="media-heading"><a href="{% url 'images:retrieve_and_update' item.pk %}">{{ item.name }}</a></h4>
-		                                {{ item.gallery.name }}
-		                            </div>
-                        		</div>
-                        	</td>
-     						<td class="col-sm-1 col-md-1">
-                        		<a href="{% url 'images:delete' item.pk %}" class="btn btn-danger" role="button"><i class="fa fa-trash-o fa-lg"></i></a>
-                        	</td>
-                    	</tr>
-                    	
-					{% empty %}
-						<p class="text-center">
-							No image found.
-						</p>
-					{% endfor %}
-				</tbody>
-            </table>
-		</div>
+		{% for object in object_list %}
+  			<div class="col-sm-4 col-md-2">
+    			<div class="thumbnail">
+    				<p class="pull-right">
+    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %}">{{ object.public|yesno:"published, unpublished" }}</span>
+    				</p>
+      				<a href="{{ object.url|default:'#'|default_if_none:'#' }}" >{% thumbnail '200x200' object.image %}</a>
+	      			<div class="caption">
+	        			<h4>{{ object.name|title|truncatechars:35 }}
+	        				{% if object.gallery %}
+	        					<p><small>{{ object.gallery.name|title|truncatechars:35 }}</small></p>
+	        				{% else %}
+	        					<p>&nbsp;</p>
+	        			{% endif %}
+	        			</h4>
+	        				{% if object.description %}
+	        					<p><small>{{ object.description|default_if_none:""|truncatechars:35 }}</small></p>
+	        				{% else %}
+	        					<p>&nbsp;</p>
+	        				{% endif %}
+	        		</div>		
+	        				<div class="btn-toolbar" role="toolbar">
+	        					<a href="{% url 'images:update' object.slug  %}" class="btn btn-default" role="button"><i class="fa fa-edit fa-lg"></i></a>
+	        					<a href="{% url 'images:delete' object.slug  %}" class="btn btn-danger" role="button"><i class="fa fa-trash-o fa-lg"></i></a>
+	        				</div>
+	     			 
+	    		</div>
+  			</div>
+  		{% empty %}
+			<p class="text-center">
+				No image found.
+			</p>
+		{% endfor %}
 	</div>
+	
 {% endblock %}
+				

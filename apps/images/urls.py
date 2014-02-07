@@ -1,8 +1,8 @@
 from django.conf.urls import patterns, url
-from apps.images.views import IndexView, RetrieveAndUpdateView, DeleteView
+from apps.images.views import IndexView, DeleteView, UpdateView
 
 urlpatterns = patterns('',
-                       url(r'^$', IndexView.as_view(), name='index'),
-                       url(r'^(?P<pk>\d+)$', RetrieveAndUpdateView.as_view(), name='retrieve_and_update'),
-                       url(r'^(?P<pk>\d+)/delete$', DeleteView.as_view(), name='delete'),
+                        url(r'^$', IndexView.as_view(), name='index'),
+                        url(r'^(?P<slug>[\w-]+)$', UpdateView.as_view(), name='update'),
+                        url(r'^(?P<slug>[\w-]+)/delete$', DeleteView.as_view(), name='delete'),
                       )

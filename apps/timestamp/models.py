@@ -18,6 +18,8 @@ class Descriptor(models.Model):
 class Timestamp(models.Model):
     
     created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    public = models.BooleanField(default=False)
     
     class Meta:
         abstract = True
