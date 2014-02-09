@@ -50,7 +50,7 @@
 				  <div class="panel-heading">
 				    <h3 class="panel-title">
 				    	<a href="{% url 'gallery:update' object.slug %}">{{ object.name|title|truncatechars:35 }}</a>
-    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %} pull-right">{{ object.public|yesno:"published, unpublished" }}</span>
+    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %} pull-right">{{ object.public|yesno:"on, off" }}</span>
     					</h3>
     				
 				  </div>
@@ -59,7 +59,7 @@
 				    	<div class="col-sm-2 col-md-2">
 			    			<div class="thumbnail">
 			    				<p>
-			    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %}">{{ object.public|yesno:"published, unpublished" }}</span>
+			    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %} pull-right">{{ object.public|yesno:"on, off" }}</span>
 			    				</p>
 			      				<a href="{{ object.url|default:'#'|default_if_none:'#' }}" >{% thumbnail '100x100' object.image %}</a>
 				      			<div class="caption">

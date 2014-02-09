@@ -3,7 +3,7 @@ import os
 gettext = lambda s: s
 PROJECT_PATH = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
 
-# Django settings for mycms project.
+# Django settings for shelf project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -17,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'mycms',                      # Or path to database file if using sqlite3.
+        'NAME': 'shelf',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'postgres',
         'PASSWORD': 'postgres',
@@ -108,10 +108,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'mycms.urls'
+ROOT_URLCONF = 'shelf.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'mycms.wsgi.application'
+WSGI_APPLICATION = 'shelf.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
