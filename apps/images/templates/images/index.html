@@ -66,7 +66,7 @@
   			<div class="col-sm-4 col-md-2">
     			<div class="thumbnail">
     				<p class="pull-right">
-    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %}">{{ object.public|yesno:"published, unpublished" }}</span>
+    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %}">{{ object.public|yesno:"on, off" }}</span>
     				</p>
       				<a href="{{ object.url|default:'#'|default_if_none:'#' }}" >{% thumbnail '200x200' object.image %}</a>
 	      			<div class="caption">
