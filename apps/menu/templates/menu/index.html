@@ -1,59 +1,75 @@
-{% extends "base.html" %}
+{% extends "dashboard_template.html" %}
 
-
-{% block content %}
-
-<h2>Menu</h2>
-
-<div class="btn-toolbar" role="toolbar">
-	<a href="{% url 'menu:create' %}" class="btn btn-primary pull-right" role="button">
-		<i class="fa fa-plus"></i>&nbsp;&nbsp;&nbsp;Create
-	</a>
-</div>
-
-<p></p>
-
-{% if list %}
-	<div class="table-responsive">
-  		<table class="table table-hover">
-  			<tr>
-  				<th>#</th>
-  				<th>Name</th>
-  				<th>Level</th>
-  				<th></th>
-  			<tr>
-  			{% for item in list %}
-  				<tr>
-  					<td>
-  						{{ forloop.counter }}
-  					</td>
-  					<td>
-  						<a href="{% url 'menu:retrieve' item.id %}">{{ item.name }}</a>
-  					</td>
-  					<td>
-  						{{ item.level }}
-  					</td>
-  					<td>
-  						<div class="btn-toolbar" role="toolbar">
-  							{% if item.is_visible %}
-								<span class="label label-danger">ON</span>
-							{% else %}
-								<span class="label label-default">OFF</span>
-							{% endif %}
-  							<a href="{% url 'menu:update' item.pk %}" class="text-warning">
-								<i class="fa fa-pencil-square-o fa-lg"></i>
-							</a>
-	  						<a href="{% url 'menu:delete' item.pk %}" class="text-danger">
-				  				<i class="fa fa-trash-o fa-lg"></i>
-							</a>
-						</div>
-  					</td>
-  				</tr>
-  			{% endfor %}
-  		</table>
-	</div>
-{% endif %}
-<p class="pull-right">
-	<span class="badge">{{ list.count }}</span> itens
-</p>
+{% load mptt_tags %}
+{% block dashboard_title %}
+	<h1 class="page-header">
+		Menu
+	</h1>
 {% endblock %}
+
+
+
+{% block dashboard_content %}
+
+<div class="row">
+		<div class="col-md-4">
+			<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
+				<div class="row">
+					<div class="col-md-12">
+						{% include "error_list.html" with error_list=form.non_field.errors %}
+					</div>
+				</div>
+				<!--NAME and GALLERY-->
+				<div class="row">
+					<div class="col-md-12">
+						<p>
+							<label>Name:</label>
+							{{ form.name }}
+						</p>
+						{% include "error_list.html" with error_list=form.name.errors %}
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">
+						<p>
+							<label>Name:</label>
+							{{ form.parent }}
+						</p>
+						{% include "error_list.html" with error_list=form.name.errors %}
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<p>&nbsp;</p>	
+	
+	<hr>
+
+	<p>&nbsp;</p>
+
+	<div class="row">
+		<ul class="root">
+		    {% recursetree nodes %}
+		        <li>
+		            <a href="{% url 'menu:update' node.slug %}">{{ node.name }} <a href="{% url 'menu:delete' node.slug  %}" class="text-danger" role="button"><i class="fa fa-trash-o"></i></a> 
+		            {% if not node.is_leaf_node %}
+		                <ul class="children">
+		                    {{ children }}
+		                </ul>
+		            {% endif %}
+		        </li>
+		    {% endrecursetree %}
+		</ul>
+	</div>
+	
+{% endblock %}
+
+

@@ -42,57 +42,17 @@
 	
 	<p>&nbsp;</p>
 	
-		
-	<div class="row">
-		<div class="col-md-12">
-			{% for object in object_list %}
-				<div class="panel panel-default">
-				  <div class="panel-heading">
-				    <h3 class="panel-title">
-				    	<a href="{% url 'gallery:update' object.slug %}">{{ object.name|title|truncatechars:35 }}</a>
-    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %} pull-right">{{ object.public|yesno:"on, off" }}</span>
-    					</h3>
-    				
-				  </div>
-				  <div class="panel-body">
-				    {% for object in object.image_set.all %}
-				    	<div class="col-sm-2 col-md-2">
-			    			<div class="thumbnail">
-			    				<p>
-			    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %} pull-right">{{ object.public|yesno:"on, off" }}</span>
-			    				</p>
-			      				<a href="{{ object.url|default:'#'|default_if_none:'#' }}" >{% thumbnail '100x100' object.image %}</a>
-				      			<div class="caption">
-				        			<h4>{{ object.name|title|truncatechars:35 }}
-				        				{% if object.gallery %}
-				        					<p><small>{{ object.gallery.name|title|truncatechars:35 }}</small></p>
-				        				{% else %}
-				        					<p>&nbsp;</p>
-				        			{% endif %}
-				        			</h4>
-				        			
-				        		</div>		
-				        				<div class="btn-toolbar" role="toolbar">
-				        					<a href="{% url 'images:update' object.slug  %}" class="btn btn-default" role="button"><i class="fa fa-edit fa-lg"></i></a>
-				        					<a href="{% url 'images:delete' object.slug  %}" class="btn btn-danger" role="button"><i class="fa fa-trash-o fa-lg"></i></a>
-				        				</div>
-				     			 
-				    		</div>
-  						</div>
-				    {% empty %}
-				    	<p class="text-center">
-							No image found.
-						</p>
-				    {% endfor %}
-				  </div>
-				</div>
-				{% empty %}
-				<p class="text-center">
-					No gallery found.
-				</p>
-			{% endfor %}		
-							
-
-				  				
+	
+<div class="row">
+	<div class="col-md-12">
+		{% for object in object_list %}
+			{% include "gallery_panel.html" with object=object %}
+		{% empty %}
+			<p class="text-center">
+				No gallery found.
+			</p>
+		{% endfor %}		
+	</div>
+</div>			
 
 {% endblock %}

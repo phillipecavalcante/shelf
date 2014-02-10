@@ -11,5 +11,5 @@ class Image(Timestamp, Descriptor):
                                      format='JPEG',
                                      options={'quality':100})
     
-    gallery = models.ForeignKey(Gallery, blank=True, null=True)
+    gallery = models.ForeignKey(Gallery, blank=True, null=True, on_delete=models.SET_NULL)
         

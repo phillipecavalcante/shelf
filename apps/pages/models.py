@@ -1,28 +1,22 @@
 from django.db import models
-from menu.models import Menu
-from timestamp.models import Timestamp
-from products.models import Gallery, Product
+from apps.menu.models import Menu
+from apps.gallery.models import Gallery
+from apps.timestamp.models import Timestamp, Descriptor
 
-class AbstractPage(Timestamp):
-    name = models.CharField(max_length=50, blank=False, null=False)
-    menu = models.OneToOneField(Menu, blank=True, null=True)
+class AbstractPage(Timestamp, Descriptor):
     
-    def __unicode__(self):
-        return unicode(self.name)
+    menu = models.ForeignKey(Menu, blank=True, null=True, on_delete=models.SET_NULL)
     
     class Meta:
         abstract = True
 
 
 class LinkPage(AbstractPage):
-    url = models.URLField(blank=True)
+    pass
     
 class BasicPage(AbstractPage):
-    content = models.TextField(blank=True)
+    content = models.TextField(blank=True, null=True)
     
     
 class GalleryPage(AbstractPage):
     content = models.ForeignKey(Gallery)
-
-class ProductPage(AbstractPage):
-    content = models.ForeignKey(Product)

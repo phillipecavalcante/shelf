@@ -1,11 +1,20 @@
 from django import forms
-from menu.models import Menu
+from apps.menu.models import Menu
+        
+class MenuIndexForm(forms.ModelForm):
+    
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Menu name'}))
+    
+    class Meta:
+        model = Menu
+        exclude = ('description', 'url')
+        
         
 class MenuForm(forms.ModelForm):
-    #parent
-    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    position = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    #public
+    
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Menu name'}))
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'Menu description'}))
+    url = forms.URLField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Menu link'}))
     
     class Meta:
         model = Menu

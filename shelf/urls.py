@@ -14,8 +14,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     #url(r'^admin/', include(admin.site.urls)),
-#     url(r'^menu/', include('menu.urls', namespace='menu')),
-#     url(r'^pages/', include('pages.urls', namespace='pages')),
+    url(r'^menu/', include('apps.menu.urls', namespace='menu')),
+    url(r'^pages/', include('apps.pages.urls', namespace='pages')),
     url(r'^gallery/', include('apps.gallery.urls', namespace='gallery')),
     url(r'^images/', include('apps.images.urls', namespace='images')),
     url(r'^search/', include('apps.exemplo.urls', namespace='search')),

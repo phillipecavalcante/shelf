@@ -1,20 +1,22 @@
 {% extends "dashboard_template.html" %}
-{% load imagekit %}
 
 {% block dashboard_title %}
 	<h1 class="page-header">
-		Images
+		Gallery
 	</h1>
 	<hr>
 {% endblock %}
 
 {% block dashboard_content %}
 
-<div class="row">
-	{{ object.name }}
-</div>
 
-Todas as imagens vinculadas a esta categoria serao excluidas para sempre!
+<p class="bg-danger">
+	As imagens da galeria não serão excluídas.
+</p>
+
+
+{% include "gallery_panel.html" with object=object %}
+
 
 <div class="row">
 	<div class="col-md-4">

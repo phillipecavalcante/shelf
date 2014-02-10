@@ -7,10 +7,19 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 
+from apps.menu.models import Menu
+from apps.timestamp.models import Timestamp
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+
+class TestDescriptor(TestCase):
+
+    
+    def create_model(self):
+        m = Menu.objects.create(name="Menu")
+        return m
+    
+    def test_timestamp_unicode(self):
+        m = self.create_model()
+        
+        self.assertTrue(issubclass(m.__class__, Timestamp),)
+        self.assertEqual(m.__unicode__(), m.name)
