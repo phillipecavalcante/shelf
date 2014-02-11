@@ -17,16 +17,8 @@
 						{% include "error_list.html" with error_list=form.non_field.errors %}
 					</div>
 				</div>
-				<!--NAME and GALLERY-->
-				<div class="row">
-					<div class="col-md-12">
-						<p>
-							<label>Name:</label>
-							{{ form.name }}
-						</p>
-						{% include "error_list.html" with error_list=form.name.errors %}
-					</div>
-				</div>
+				
+				{% include "form_field_row.html" with name="Name:" form=form error_list=form.non_field.errors %}
 				
 				<div class="row">
 					<div class="col-md-12">
