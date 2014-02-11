@@ -262,7 +262,7 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                        <a href="{% url 'dashboard:index' %}"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     
                     <li class="active">
@@ -279,14 +279,17 @@
                     <li class="active">
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> Pages<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="panels-wells.html">Simple Page</a>
+                        	<li>
+                                <a href="{% url 'pages:linkpage_index' %}">Link Pages</a>
                             </li>
                             <li>
-                                <a href="panels-wells.html">Gallery Page</a>
+                                <a href="{% url 'pages:textpage_index' %}">Text Pages</a>
                             </li>
                             <li>
-                                <a href="panels-wells.html">Product Page</a>
+                                <a href="{% url 'pages:gallerypage_index' %}">Gallery Pages</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'pages:productpage_index' %}">Product Pages</a>
                             </li>
                             
                         </ul>

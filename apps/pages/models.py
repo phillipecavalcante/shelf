@@ -14,9 +14,12 @@ class AbstractPage(Timestamp, Descriptor):
 class LinkPage(AbstractPage):
     pass
     
-class BasicPage(AbstractPage):
+class TextPage(AbstractPage):
     content = models.TextField(blank=True, null=True)
     
     
 class GalleryPage(AbstractPage):
-    content = models.ForeignKey(Gallery)
+    gallery = models.ForeignKey(Gallery)
+
+class ProductPage(AbstractPage):
+    pass

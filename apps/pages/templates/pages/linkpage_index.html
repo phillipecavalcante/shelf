@@ -1,0 +1,49 @@
+{% extends "dashboard_template.html" %}
+
+{% block dashboard_title %}
+	<h1 class="page-header">
+		Link Pages
+	</h1>
+{% endblock %}
+
+{% block dashboard_content %}
+
+	<div class="row">
+		<div class="col-md-4">
+			<form action="" method="post">{% csrf_token %}
+				{{ form.as_p }}    
+			    <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+			</form>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-4">
+	
+			<div class="table-responsive">
+				<table class="table table-hover table-condensed">
+					<thead>
+						<tr>
+							<th>Page Name</th>
+							<th>Redirects to</th>
+							<th>Is published?</th>
+							<th>Appended to</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for object in object_list %}
+							<tr>
+								<td>{{ object.name }}</td>
+								<td>{{ object.url|default_if_none:"Nowhere" }}</td>
+								<td>{% if object.public %}<i class="fa fa-globe" title="published"></i>{% endif %}</td>
+								<td>{{ object.menu|default_if_none:"Root" }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+	</div>
+
+{% endblock %}

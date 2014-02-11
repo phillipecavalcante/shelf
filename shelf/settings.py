@@ -55,7 +55,8 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/Users/phillipe/Downloads/media/'#'C:/Users/phillipe/Downloads/media/'
+# MEDIA_ROOT = '/Users/phillipe/Downloads/media/'
+MEDIA_ROOT = 'C:/Users/phillipe/Downloads/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -66,7 +67,8 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/Users/phillipe/Downloads/static/'#'C:/Users/phillipe/Downloads/static/'
+# STATIC_ROOT = '/Users/phillipe/Downloads/static/'
+STATIC_ROOT = 'C:/Users/phillipe/Downloads/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -142,6 +144,7 @@ INSTALLED_APPS = (
     # project
     #===========================================================================
 #     'account',
+    'apps.dashboard',
     'apps.images',
     'apps.gallery',
 #     'apps.exemplo',
@@ -195,4 +198,11 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
         'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
     },
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
 }
