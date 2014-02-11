@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
-from account.views import IndexView
+from apps.account.views import logout_view
 
 urlpatterns = patterns('',
-                      url(r'^$', IndexView.as_view(), name='index'),
+                      url(r'^$', logout_view, name='index'),
                       )

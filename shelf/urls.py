@@ -20,8 +20,8 @@ urlpatterns = patterns('',
     url(r'^gallery/', include('apps.gallery.urls', namespace='gallery')),
     url(r'^images/', include('apps.images.urls', namespace='images')),
     url(r'^search/', include('apps.exemplo.urls', namespace='search')),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
-#     url(r'^account/', include('account.urls', namespace='account')),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'registration/login.html'}),
+    url(r'^accounts/', include('apps.account.urls', namespace='account')),
 #     url(r'^', include('website.urls', namespace='website')),
 )
 

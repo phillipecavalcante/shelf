@@ -1,8 +1,6 @@
-from django.views import generic
+from django.contrib.auth import logout
+from django.core.urlresolvers import reverse
 
-
-class IndexView(generic.ListView):
-    template_name = 'account/index.html'
-    
-    def get_queryset(self):
-        return None
+def logout_view(request):
+    logout(request)
+    return reverse('dashboard:index')
