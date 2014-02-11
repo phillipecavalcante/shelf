@@ -5,6 +5,10 @@ from apps.gallery.models import Gallery
 
 class LinkPageIndexForm(forms.ModelForm):
     
+    def __init__(self, *args, **kwargs):
+        super(LinkPageIndexForm, self).__init__(*args, **kwargs)
+        self.fields['menu'].widget.attrs['class'] = 'form-control'
+        
     name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Example'}))
     url = forms.URLField(required=True, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'www.example.com'}), label='Redirect to')
     
@@ -16,6 +20,11 @@ class LinkPageIndexForm(forms.ModelForm):
         
 class TextPageIndexForm(forms.ModelForm):
     
+    def __init__(self, *args, **kwargs):
+        super(TextPageIndexForm, self).__init__(*args, **kwargs)
+        self.fields['menu'].widget.attrs['class'] = 'form-control'
+        
+        
     name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Example'}))
     
     class Meta:
@@ -39,6 +48,10 @@ class GalleryPageIndexForm(forms.ModelForm):
         
 class ProductPageIndexForm(forms.ModelForm):
     
+    def __init__(self, *args, **kwargs):
+        super(ProductPageIndexForm, self).__init__(*args, **kwargs)
+        self.fields['menu'].widget.attrs['class'] = 'form-control'
+        
     name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Example'}))
     
     class Meta:
