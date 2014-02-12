@@ -10,7 +10,8 @@
             
 {% block dashboard_content %}
 
-
-LinkPage
-BasicPage
+<a href="{% url 'pages:linkpage_index' %}">Link Pages</a>
+<a href="{% url 'pages:textpage_index' %}">Text Pages</a>
+<a href="{% url 'pages:gallerypage_index' %}">Gallery Pages</a>
+<a href="{% url 'pages:productpage_index' %}">Product Pages</a>
 {% endblock %}
