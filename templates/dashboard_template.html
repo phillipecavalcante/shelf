@@ -354,8 +354,21 @@
         <!-- /.navbar-static-side -->
 
         <div id="page-wrapper">
+        
+        	<div class="row">
+        		<p></p>
+        		<div class="col-md-10">
+        			<ol class="breadcrumb">
+                		<li class="active">Dashboard</li>
+                		{% block breadcrumbs %}
+                		{% endblock %}
+                	</ol>
+        		</div>
+        	</div>
+        
             <div class="row">
                 <div class="col-md-12 col-lg-12">
+
                     {% block dashboard_title %}
                     	<h1 class="page-header">
                     		Dashboard
