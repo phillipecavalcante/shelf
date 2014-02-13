@@ -1,8 +1,11 @@
+#===============================================================================
+# DJANGO
+#===============================================================================
+from django.conf import settings
 from django.conf.urls import patterns, include, url
-import settings
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
+from django.conf.urls.static import static
+# from django.contrib import admin
+# admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -23,10 +26,4 @@ urlpatterns = patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'registration/login.html'}),
     url(r'^accounts/', include('apps.account.urls', namespace='account')),
 #     url(r'^', include('website.urls', namespace='website')),
-)
-
-
-if settings.DEBUG:
-    urlpatterns += patterns('django.views.static',
-        (r'media/(?P<path>.*)', 'serve', {'document_root': settings.MEDIA_ROOT}),
-    )
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

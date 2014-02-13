@@ -11,77 +11,18 @@
 {% block dashboard_content %}
 
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+		<p>
+		{% thumbnail '500x400' object.image -- class="img-responsive img-thumbnail" %}
+		</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
-						<!--NON FIELD ERROR-->
-						<div class="row">
-							<div class="col-md-12">
-								{% include "error_list.html" with error_list=form.non_field.errors %}
-							</div>
-						</div>
-						<!--NAME and GALLERY-->
-						<div class="row">
-							<div class="col-md-12">
-								<p>
-									<label>Name:</label>
-									{{ form.name }}
-								</p>
-								{% include "error_list.html" with error_list=form.name.errors %}
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col-md-12">
-								<p>
-									<label>Description:</label>
-									{{ form.description }}
-								</p>
-								{% include "error_list.html" with error_list=form.description.errors %}
-							</div>
-						</div>
-						<!--IMAGE-->
-						<div class="row">
-							<div class="col-md-12">
-								renderizar imagem aqui
-								<p>
-									<label>Image:</label> 
-									{{ form.image }}
-								</p>
-								{% include "error_list.html" with error_list=form.image.errors %}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<p>
-									<label>URL:</label>
-									{{ form.url }}
-								</p>
-								{% include "error_list.html" with error_list=form.url.errors %}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<p>
-									<label>Gallery:</label>
-									{{ form.gallery }}
-								</p>
-								{% include "error_list.html" with error_list=form.gallery.errors %}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<p>
-									<label>Public?:</label>
-									{{ form.public }}
-								</p>
-								{% include "error_list.html" with error_list=form.public.errors %}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-edit fa-lg"></i> Edit</button>
-							</div>
-						</div>
+			{{ form.as_p }}
+			<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-edit fa-lg"></i> Edit</button>
 		</form>
 		<div class="btn-toolbar">
 			<a href="{% url 'images:index' %}" class="btn btn-default" ><span class="glyphicon glyphicon-remove"></span> Cancel</a>

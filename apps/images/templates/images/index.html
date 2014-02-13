@@ -10,74 +10,36 @@
 {% block dashboard_content %}
 
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-xs-6 col-sm-8 col-md-6 col-lg-6">
 			<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
-				<div class="row">
-					<div class="col-md-12">
-						{% include "error_list.html" with error_list=form.non_field.errors %}
-					</div>
-				</div>
-				<!--NAME and GALLERY-->
-				<div class="row">
-					<div class="col-md-12">
-						<p>
-							<label>Name:</label>
-							{{ form.name }}
-						</p>
-						{% include "error_list.html" with error_list=form.name.errors %}
-					</div>
-				</div>
-				<!--IMAGE-->
-				<div class="row">
-					<div class="col-md-12">
-						<p>
-							<label>Image:</label>
-							{{ form.image }}
-						</p>
-						{% include "error_list.html" with error_list=form.image.errors %}
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-							<p>
-								<label>Gallery:</label>
-								{{ form.gallery }}
-							</p>
-							{% include "error_list.html" with error_list=form.gallery.errors %}
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add</button>
-					</div>
-				</div>
+				{{ form.as_p }}
+				<button type="submit" class="btn btn-primary"> Add</button>
 			</form>
 		</div>
 	</div>
 	
-	<p>&nbsp;</p>	
+
+	
+	<div class="row">
+		<div class="col-xs-6 col-sm-8 col-md-6 col-lg-12">
+			<p class="pull-right">
+				{% with total=object_list.count %}
+		    		<strong>{{ total }}</strong> image{{ total|pluralize }} added
+				{% endwith %}
+			</p>
+		</div>
+	</div>
+	
+		
 	
 	<hr>
 	
-	<p>&nbsp;</p>
+	
 	
 	<div class="row">
 		{% for object in object_list %}
-  			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+  			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
   				<div class="panel panel-default">
-  					<div class="panel-heading">
-  						<a href="#" title="online">
-	        				{% if object.public %}<span class="label label-success pull-right">on</span>{% endif %}
-	        			</a>
-                   		<h3 class="panel-title">
-                   			{% if object.gallery or object.name %}
-                   				{{ object.name|title|truncatechars:35 }}
-                   				<small>{{ object.gallery.name|title|truncatechars:35 }}</small>
-                   			{% else %}
-                   				&nbsp;
-                   			{% endif %}
-                   		</h3>
-                	</div>
 	                <div class="panel-image">
 							<!-- Modal -->
 							<div class="modal fade" id="myModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -90,28 +52,46 @@
 							        </h3>
 							      </div>
 							      <div class="modal-body">
-							      	<div class="text-center">
-							        	{% thumbnail '500x400' object.image %}
-							        </div>
-							        <h4>{{ object.description|default_if_none:"" }}</h4>
+							      		<p class="text-center">
+							      			{% thumbnail '500x400' object.image -- class="img-responsive img-thumbnail" %}
+							        	</p>
+							        	<p>
+							        		<input type="text" class="form-control" value="{{ object.image.url }}">
+							        	</p>
+							        	<p>
+								        	<dl class="dl-horizontal">
+								        		<dt>Name</dt>
+								        		<dd>{{ object.name|title|default_if_none:"--"|default:"--" }}</dd>
+								        		<dt>Status</dt>
+								        		<dd>{{ object.public|yesno:"Online, Offline"|default_if_none:"--"|default:"--" }}</dd>							        		
+								        		<dt>Gallery</dt>
+								        		<dd>{{ object.gallery.name|title|default_if_none:"--"|default:"--" }}</dd>
+								        		<dt>Description</dt>
+								        		<dd>{{ object.description|default_if_none:"--"|default:"--" }}</dd>
+								        		<dt>On click</dt>
+								        		<dd>{{ object.url|default_if_none:"--"|default:"--" }}</dd>
+								        	</dl>
+							        	</p>
 							      </div>
 							      <div class="modal-footer">
 							      	<div class="btn-toolbar" role="toolbar">
-								      	<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-lg"></i></a>
-		                				<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+								      	<a href="{% url 'images:update' object.slug  %}" title="edit" class="pull-left"><i class="fa fa-edit fa-3x text-warning"></i></a>
+		                				<a href="{% url 'images:delete' object.slug  %}" title="delete" class="pull-right"><i class="fa fa-trash-o fa-3x text-danger"></i></a>
 	                				</div>
 							      </div>
 							    </div>
 							  </div>
 							</div>
 							<a href="#" data-toggle="modal" data-target="#myModal-{{ forloop.counter }}" title="{{ object.name|title }}">
-								{% thumbnail '340x200' object.image -- class="panel-image-preview" %}
+								{% thumbnail '340x200' object.image -- class="panel-image-preview img-responsive" %}
 	                		</a>
 	                </div>
 	                
-	                <div class="panel-footer text-center">
-	                	<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-lg"></i></a>
-	                	<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+	                <div class="panel-footer">
+	                	<div class="btn-toolbar" role="toolbar">
+		                	<a href="{% url 'images:update' object.slug  %}" title="edit" class="pull-left"><i class="fa fa-edit fa-lg text-warning"></i></a>
+		                	<a href="{% url 'images:delete' object.slug  %}" title="delete" class="pull-right"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+	                	</div>
 	                </div>
             	</div>
   			</div>

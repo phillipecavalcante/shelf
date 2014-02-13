@@ -1,7 +1,13 @@
+#===============================================================================
+# DJANGO
+#===============================================================================
 from django.views import generic
-from apps.images.models import Image
 from django.core.urlresolvers import reverse
-from apps.images.forms import IndexImageForm, ImageForm
+#===============================================================================
+# APPS
+#===============================================================================
+from apps.images.models import Image
+from apps.images.forms import *
 
 #===============================================================================
 # 
@@ -15,13 +21,13 @@ from apps.images.forms import IndexImageForm, ImageForm
 
 
 #===============================================================================
-# CREATE AND LIST
+# INDEX VIEW
 #===============================================================================
 
 class IndexView(generic.CreateView):
     model = Image
     template_name = 'images/index.html'
-    form_class = IndexImageForm
+    form_class = ImageIndexForm
     
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
@@ -40,10 +46,15 @@ class UpdateView(generic.UpdateView):
     model = Image
     template_name = 'images/update.html'
     form_class = ImageForm
-     
+    
+    def get_context_data(self, **kwargs):
+        context = super(UpdateView, self).get_context_data(**kwargs)
+        context['object'] = Image.objects.get(slug=self.object.slug)
+        
+        return context
+    
     def get_success_url(self):
-        return reverse('images:index')
-        #return reverse('images:update', kwargs={self.slug_url_kwarg: self.object.slug})
+        return reverse('images:update', kwargs={self.slug_url_kwarg: self.object.slug})
     
 #===============================================================================
 # DELETE
