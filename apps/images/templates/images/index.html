@@ -63,25 +63,55 @@
 	
 	<div class="row">
 		{% for object in object_list %}
-  			<div class="col-sm-4 col-md-4">
+  			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
   				<div class="panel panel-default">
+  					<div class="panel-heading">
+  						<a href="#" title="online">
+	        				{% if object.public %}<span class="label label-success pull-right">on</span>{% endif %}
+	        			</a>
+                   		<h3 class="panel-title">
+                   			{% if object.gallery or object.name %}
+                   				{{ object.name|title|truncatechars:35 }}
+                   				<small>{{ object.gallery.name|title|truncatechars:35 }}</small>
+                   			{% else %}
+                   				&nbsp;
+                   			{% endif %}
+                   		</h3>
+                	</div>
 	                <div class="panel-image">
-	                	{% thumbnail '340x200' object.image -- class="panel-image-preview" %}
-	                    <!--<img src="http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_52d09387ae003_1.JPG" class="panel-image-preview" />-->
-	                    <label for="toggle-{{ forloop.counter }}"></label>
+							<!-- Modal -->
+							<div class="modal fade" id="myModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							        <h3 class="modal-title" id="myModalLabel">{{ object.name }}
+							        	<small>{{ object.gallery.name }}</small>							   
+							        </h3>
+							      </div>
+							      <div class="modal-body">
+							      	<div class="text-center">
+							        	{% thumbnail '500x400' object.image %}
+							        </div>
+							        <h4>{{ object.description|default_if_none:"" }}</h4>
+							      </div>
+							      <div class="modal-footer">
+							      	<div class="btn-toolbar" role="toolbar">
+								      	<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-lg"></i></a>
+		                				<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
+	                				</div>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							<a href="#" data-toggle="modal" data-target="#myModal-{{ forloop.counter }}" title="{{ object.name|title }}">
+								{% thumbnail '340x200' object.image -- class="panel-image-preview" %}
+	                		</a>
 	                </div>
-	                <input type="checkbox" id="toggle-{{ forloop.counter }}" class-"panel-image-toggle">
-	                <div class="panel-body">
-	                    <h4>{{ object.name|title|truncatechars:35 }}</h4>
-	                    <p><small>{{ object.gallery.name|title|truncatechars:35 }}</small></p>
-	                    <p>{{ object.description|default_if_none:""|truncatechars:35 }}</p>
-	                </div>
+	                
 	                <div class="panel-footer text-center">
-	                	{% if object.public %}<i class="fa fa-globe fa-lg text-primary"></i>{% endif %}
-	                    <a href="#download"><span class="glyphicon glyphicon-download"></span></a>
-	                    <a href="#share"><span class="glyphicon glyphicon-share-alt"></span></a>
-	                    <a href="{% url 'images:update' object.slug  %}"><i class="fa fa-edit fa-lg"></i></a>
-	        					<a href="{% url 'images:delete' object.slug  %}"><i class="fa fa-trash-o fa-lg"></i></a>
+	                	<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-lg"></i></a>
+	                	<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
 	                </div>
             	</div>
   			</div>
@@ -90,7 +120,8 @@
 				No image found.
 			</p>
 		{% endfor %}
-	</div>
+		 
+</div>
 	    			
 	
 {% endblock %}
