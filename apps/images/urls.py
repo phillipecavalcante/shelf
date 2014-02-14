@@ -1,7 +1,7 @@
 #===============================================================================
 # DJANGO
 #===============================================================================
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 #===============================================================================
 # IMAGES
 #===============================================================================
@@ -11,7 +11,8 @@ urlpatterns = patterns('',
                        #========================================================
                        # IMAGES
                        #========================================================
-                       url(r'^$', IndexView.as_view(), name='index'),
+                       url(r'^a$', IndexView.as_view(), name='index'),
                        url(r'^(?P<slug>[\w-]+)$', UpdateView.as_view(), name='update'),
                        url(r'^(?P<slug>[\w-]+)/delete$', DeleteView.as_view(), name='delete'),
+                       url(r'^', include('haystack.urls'), name='search'),
                       )

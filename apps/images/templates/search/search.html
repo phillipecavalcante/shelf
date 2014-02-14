@@ -1,4 +1,5 @@
 {% extends 'dashboard_template.html' %}
+{% load imagekit %}
 
 {% block dashboard_content %}
     <h2>Search</h2>
@@ -19,7 +20,8 @@
 
             {% for result in page.object_list %}
                 <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
+                	{% thumbnail '272x167' result.object.image -- class="panel-image-preview img-responsive" %}
+                    <a href="{% url 'images:index' %}/#{{ result.object.slug }}">{{ result.object.name }}</a>
                 </p>
             {% empty %}
                 <p>No results found.</p>
