@@ -1,10 +1,7 @@
 {% extends "dashboard_template.html" %}
 
 {% block dashboard_title %}
-	<h1 class="page-header">
 		Gallery
-	</h1>
-	<hr>
 {% endblock %}
 
 {% block dashboard_content %}
@@ -14,9 +11,9 @@
 	As imagens da galeria não serão excluídas.
 </p>
 
-
-{% include "gallery_panel.html" with object=object %}
-
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+{% include "gallery/template_gallery_panel.html" with object=object %}
+</div>
 
 <div class="row">
 	<div class="col-md-4">

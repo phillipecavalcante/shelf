@@ -1,0 +1,40 @@
+{% load imagekit %}
+
+<div class="panel panel-default">
+	
+	<div class="panel-heading">
+		
+		<h3 class="panel-title">
+			<a href="{% url 'gallery:update' object.slug %}">{{ object.name|title|truncatechars:35 }}</a>
+			<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %}">{{ object.public|yesno:"on, off" }}</span>
+		</h3>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<p class="text-center text-danger pull-right">
+					<a href="{% url 'gallery:delete' object.slug %}" class="text-danger" role="button"><i class="fa fa-trash-o fa-2x"></i></a>
+				</p>
+			</div>
+		</div>
+
+	</div>
+	
+	<div class="panel-body">
+		
+		{% for object in object.image_set.all %}
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			
+				{% include "template_modal.html" with object=object counter=forloop.counter %}
+				
+				<a href="#" data-toggle="modal" data-target="#myModal-{{ forloop.counter }}" title="{{ object.name|title }}">
+					{% thumbnail '432x267' object.image -- class="panel-image-preview img-responsive img-thumbnail" %}
+        		</a>
+		   		
+			</div>
+		{% empty %}
+			<p class="text-center lead">
+			No gallery found.
+			</p>
+		{% endfor %}
+	</div>
+	
+</div>

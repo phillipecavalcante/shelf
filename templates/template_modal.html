@@ -1,0 +1,83 @@
+{% load imagekit %}
+<!-- Modal -->
+		<div class="modal fade" id="myModal-{{ counter }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+			
+					<!-- MODAL HEADER -->
+					<div class="modal-header">
+						
+						<!-- CLOSE BUTTON -->
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+						
+						<!-- MODAL TITLE -->
+					    <h3 class="modal-title" id="myModalLabel">{{ object.name|title }}
+					    	<small>{{ object.gallery.name|title }}</small>							   
+					    </h3>
+					    
+					    
+					</div>
+					
+					<!-- MODAL BODY -->						      
+					<div class="modal-body">
+					  	
+					  	<!-- IMAGE PICTURE -->
+					  	<p class="text-center">
+					  			{% thumbnail '432x267' object.image -- class="img-responsive img-thumbnail" %}
+						</p>
+						
+						<!-- URL IMAGE -->
+						<p>
+							<input type="text" class="form-control" value="{{ object.image.url }}">
+						</p>
+						
+						<!-- IMAGE DESCRIPTION -->
+						<p>
+					    	<dl class="dl-horizontal">
+					    		<dt>Name</dt>
+					    		<dd>{{ object.name|title|default_if_none:"--"|default:"--" }}</dd>
+					    		<dt>Status</dt>
+					    		<dd>
+					    			{% with published=object.public %}
+						    			<span class="label {{ published|yesno:'label-primary,label-default' }}">
+						    				{{ published|yesno:"published,unpublished" }}
+						    			</span>
+					    			{% endwith %}
+					    		</dd>							        		
+					    		<dt>Gallery</dt>
+					    		<dd>{{ object.gallery.name|title|default_if_none:"--"|default:"--" }}</dd>
+					    		<dt>Description</dt>
+					    		<dd>{{ object.description|default_if_none:"--"|default:"--" }}</dd>
+					    		<dt>On click</dt>
+					    		<dd>{{ object.url|default_if_none:"--"|default:"--" }}</dd>
+					    	</dl>
+						</p>
+						
+					</div>
+					
+					<!-- MODAL FOOTER -->						      
+					<div class="modal-footer">
+						<p></p>
+						<div class="row">
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+								<p class="text-center ">
+									<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-2x text-warning"></i></a>
+								</p>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+								<p class="text-center">
+									<a href="#{{ object.name }}" title="{{ object.public|yesno:'published, unpublished' }}"><i class="fa fa-globe fa-2x {% if object.public %}text-primary{% else %}text-muted{% endif %}"></i></a>
+								</p>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+								<p class="text-center">
+									<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-2x text-danger"></i></a>
+								</p>
+							</div>
+						</div>
+					
+					</div>
+			
+				</div>
+			</div>
+		</div>

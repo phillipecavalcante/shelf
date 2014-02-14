@@ -1,0 +1,34 @@
+{% load imagekit %}
+
+<div class="panel panel-default">
+
+	<div id="{{ object.name }}" class="panel-image">
+		{% include "template_modal.html"  %}
+		<a href="#" data-toggle="modal" data-target="#myModal-{{ forloop.counter }}" title="{{ object.name|title }}">
+			{% thumbnail '432x267' object.image -- class="panel-image-preview img-responsive" %}
+		</a>
+	</div>
+	
+	<div class="panel-footer">
+		<p></p>
+		<div class="row">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<p class="text-center text-warning">
+					<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-lg"></i></a>
+				</p>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<p class="text-center {% if object.public %}text-primary{% else %}text-muted{% endif %}">
+					<i title="{{ object.public|yesno:'published, unpublished' }}" class="fa fa-globe fa-2x" ></i>
+				</p>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<p class="text-center text-danger">
+					<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-lg"></i></a>
+				</p>
+			</div>
+		</div>
+
+    </div>
+	    
+</div>

@@ -2,107 +2,29 @@
 {% load imagekit %}
 
 {% block dashboard_title %}
-	<h1 class="page-header">
-		Images
-	</h1>
+	Images
 {% endblock %}
 
 {% block dashboard_content %}
 
-	<div class="row">
-		<div class="col-xs-6 col-sm-8 col-md-6 col-lg-6">
-			<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
-				{{ form.as_p }}
-				<button type="submit" class="btn btn-primary"> Add</button>
-			</form>
-		</div>
-	</div>
+	{% include "template_index_form.html" with form=form has_file_field="True" %}
 	
-
-	
-	<div class="row">
-		<div class="col-xs-6 col-sm-8 col-md-6 col-lg-12">
-			<p class="pull-right">
-				{% with total=object_list.count %}
-		    		<strong>{{ total }}</strong> image{{ total|pluralize }} added
-				{% endwith %}
-			</p>
-		</div>
-	</div>
-	
-		
+	{% include "template_counter.html" with counter_name="image" plural="s" count=object_list.count %}
 	
 	<hr>
-	
-	
-	
+		
 	<div class="row">
 		{% for object in object_list %}
-  			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-  				<div class="panel panel-default">
-	                <div class="panel-image">
-							<!-- Modal -->
-							<div class="modal fade" id="myModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							  <div class="modal-dialog">
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							        <h3 class="modal-title" id="myModalLabel">{{ object.name }}
-							        	<small>{{ object.gallery.name }}</small>							   
-							        </h3>
-							      </div>
-							      <div class="modal-body">
-							      		<p class="text-center">
-							      			{% thumbnail '500x400' object.image -- class="img-responsive img-thumbnail" %}
-							        	</p>
-							        	<p>
-							        		<input type="text" class="form-control" value="{{ object.image.url }}">
-							        	</p>
-							        	<p>
-								        	<dl class="dl-horizontal">
-								        		<dt>Name</dt>
-								        		<dd>{{ object.name|title|default_if_none:"--"|default:"--" }}</dd>
-								        		<dt>Status</dt>
-								        		<dd>{{ object.public|yesno:"Online, Offline"|default_if_none:"--"|default:"--" }}</dd>							        		
-								        		<dt>Gallery</dt>
-								        		<dd>{{ object.gallery.name|title|default_if_none:"--"|default:"--" }}</dd>
-								        		<dt>Description</dt>
-								        		<dd>{{ object.description|default_if_none:"--"|default:"--" }}</dd>
-								        		<dt>On click</dt>
-								        		<dd>{{ object.url|default_if_none:"--"|default:"--" }}</dd>
-								        	</dl>
-							        	</p>
-							      </div>
-							      <div class="modal-footer">
-							      	<div class="btn-toolbar" role="toolbar">
-								      	<a href="{% url 'images:update' object.slug  %}" title="edit" class="pull-left"><i class="fa fa-edit fa-3x text-warning"></i></a>
-		                				<a href="{% url 'images:delete' object.slug  %}" title="delete" class="pull-right"><i class="fa fa-trash-o fa-3x text-danger"></i></a>
-	                				</div>
-							      </div>
-							    </div>
-							  </div>
-							</div>
-							<a href="#" data-toggle="modal" data-target="#myModal-{{ forloop.counter }}" title="{{ object.name|title }}">
-								{% thumbnail '340x200' object.image -- class="panel-image-preview img-responsive" %}
-	                		</a>
-	                </div>
-	                
-	                <div class="panel-footer">
-	                	<div class="btn-toolbar" role="toolbar">
-		                	<a href="{% url 'images:update' object.slug  %}" title="edit" class="pull-left"><i class="fa fa-edit fa-lg text-warning"></i></a>
-		                	<a href="{% url 'images:delete' object.slug  %}" title="delete" class="pull-right"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
-	                	</div>
-	                </div>
-            	</div>
-  			</div>
+      		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">  	
+				{% include "images/template_image_panel.html" with object=object counter=forloop.counter %}
+			</div>
   		{% empty %}
-			<p class="text-center">
+			<p class="lead text-center">
 				No image found.
 			</p>
 		{% endfor %}
 		 
-</div>
-	    			
-	
+	</div>
+
 {% endblock %}
 				

@@ -1,45 +1,32 @@
 {% extends "dashboard_template.html" %}
-{% load imagekit humanize %}
+
 
 {% block dashboard_title %}
-	<h1 class="page-header">
-		Galleries
-	</h1>
+	Galleries
 {% endblock %}
 
 {% block dashboard_content %}
+	
+	<!-- FORM ROW-->
+	{% include "template_index_form.html" with form=form  has_file_field="False"  %}
 
-	<div class="row">
-		<div class="col-md-4">
-			<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
-				{{ form.as_p }}
-				<button type="submit" class="btn btn-primary pull-right"> Add</button>
-			</form>
-		</div>
-	</div>
+	<!-- COUNTER ROW -->
+	{% include "template_counter.html" with counter_name="galler" plural="y,ies" count=object_list.count %}
+	
+	<hr>
 	
 	<div class="row">
-		<div class="col-xs-6 col-sm-8 col-md-6 col-lg-12">
-			<p class="pull-right">
-				{% with total=object_list.count %}
-		    		<strong>{{ total|apnumber|title }}</strong> galler{{ total|pluralize:"y,ies" }} added
-				{% endwith %}
-			</p>
-		</div>
-	</div>
-
-	
-	
-	<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		
 			{% for object in object_list %}
-				{% include "gallery_panel.html" with object=object %}
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					{% include "gallery/template_gallery_panel.html" with object=object %}
+				</div>
 			{% empty %}
 				<p class="text-center">
 					No gallery found.
 				</p>
 			{% endfor %}		
-		</div>
+		
 	</div>			
 
 {% endblock %}
