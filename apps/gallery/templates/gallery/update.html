@@ -16,31 +16,7 @@
 <div class="row">
 		{% for object in object_list %}
   			<div class="col-sm-4 col-md-2">
-    			<div class="thumbnail">
-    				<p class="pull-right">
-    					<span class="label {% if not object.public %}label-default{% else %}label-success{% endif %}">{{ object.public|yesno:"published, unpublished" }}</span>
-    				</p>
-      				<a href="{{ object.url|default:'#'|default_if_none:'#' }}" >{% thumbnail '200x200' object.image %}</a>
-	      			<div class="caption">
-	        			<h4>{{ object.name|title|truncatechars:35 }}
-	        				{% if object.gallery %}
-	        					<p><small>{{ object.gallery.name|title|truncatechars:35 }}</small></p>
-	        				{% else %}
-	        					<p>&nbsp;</p>
-	        			{% endif %}
-	        			</h4>
-	        				{% if object.description %}
-	        					<p><small>{{ object.description|default_if_none:""|truncatechars:35 }}</small></p>
-	        				{% else %}
-	        					<p>&nbsp;</p>
-	        				{% endif %}
-	        		</div>		
-	        				<div class="btn-toolbar" role="toolbar">
-	        					<a href="{% url 'images:update' object.slug  %}" class="btn btn-default" role="button"><i class="fa fa-edit fa-lg"></i></a>
-	        					<a href="{% url 'images:delete' object.slug  %}" class="btn btn-danger" role="button"><i class="fa fa-trash-o fa-lg"></i></a>
-	        				</div>
-	     			 
-	    		</div>
+				{% thumbnail '500x400' object.image -- class="img-responsive img-thumbnail" %}
   			</div>
   		{% empty %}
 			<p class="text-center">

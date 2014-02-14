@@ -5,35 +5,32 @@
 	<h1 class="page-header">
 		Images
 	</h1>
-	<hr>
 {% endblock %}
 
 {% block dashboard_content %}
 
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-		<p>
-		{% thumbnail '500x400' object.image -- class="img-responsive img-thumbnail" %}
-		</p>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-md-4">
-	<form action="" method="post">{% csrf_token %}
-	    <p class="lead">Are you sure you want to delete "{{ object|title }}"?</p>
-	    
-	    <div class="pull-right">
-			<p class="btn-toolbar">
-				<a href="{% url 'images:index' %}" class="btn btn-default">
-				  	No
-				</a>
-				<button type="submit" class="btn btn-danger">Yes</button>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<p class="text-center">
+				{% thumbnail '500x400' object.image -- class="img-responsive img-thumbnail" %}
 			</p>
 		</div>
-	</form>
 	</div>
-</div>
+
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<form action="" method="post">{% csrf_token %}
+			    <p class="lead">Are you sure you want to delete <strong>{{ object|title }}</strong>?</p>
+			    
+			    <div class="pull-right">
+					<p class="btn-toolbar">
+						<a href="{% url 'images:index' %}" class="btn btn-default"><strong>No!</strong></a>
+						<button type="submit" class="btn btn-danger">Yes</button>
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
 	
 
 {% endblock %}

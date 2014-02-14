@@ -38,14 +38,23 @@ class ImageIndexForm(forms.ModelForm):
 
     
 class ImageForm(forms.ModelForm):
-    
-    def __init__(self, *args, **kwargs):
-        super(ImageForm, self).__init__(*args, **kwargs)
-        self.fields['gallery'].widget.attrs['class'] = 'form-control'
-        
-    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Image name'}))
-    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'class':'form-control', 'placeholder':'Image description'}))
-    url = forms.URLField(required=False, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Image link'}))
-    
+
     class Meta:
         model = Image
+          
+    def __init__(self, *args, **kwargs):
+        super(ImageForm, self).__init__(*args, **kwargs)
+        
+        self.fields['name'].label = _('Image name')
+        self.fields['public'].label = _('Published')
+        
+        self.fields['name'].widget.attrs['class'] = 'form-control'
+        self.fields['description'].widget.attrs['class'] = 'form-control'
+        self.fields['url'].widget.attrs['class'] = 'form-control'
+        self.fields['gallery'].widget.attrs['class'] = 'form-control'
+        
+        
+        self.fields['name'].widget.attrs['placeholder'] = 'Exemplo'
+        self.fields['url'].widget.attrs['placeholder'] = 'Image link'
+             
+

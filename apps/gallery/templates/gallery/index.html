@@ -1,5 +1,5 @@
 {% extends "dashboard_template.html" %}
-{% load imagekit %}
+{% load imagekit humanize %}
 
 {% block dashboard_title %}
 	<h1 class="page-header">
@@ -9,42 +9,37 @@
 
 {% block dashboard_content %}
 
-<div class="row">
+	<div class="row">
 		<div class="col-md-4">
 			<form enctype="multipart/form-data" action="" method="post" class="form">{% csrf_token %}
-				<div class="row">
-					<div class="col-md-12">
-						{% include "error_list.html" with error_list=form.non_field.errors %}
-					</div>
-				</div>
-				
-				{% include "form_field_row.html" with name="Name:" form=form error_list=form.non_field.errors %}
-				
-				<div class="row">
-					<div class="col-md-12">
-						<button type="submit" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Add</button>
-					</div>
-				</div>
+				{{ form.as_p }}
+				<button type="submit" class="btn btn-primary pull-right"> Add</button>
 			</form>
 		</div>
-</div>
-	<p>&nbsp;</p>	
-	
-	<hr>
-	
-	<p>&nbsp;</p>
-	
-	
-<div class="row">
-	<div class="col-md-12">
-		{% for object in object_list %}
-			{% include "gallery_panel.html" with object=object %}
-		{% empty %}
-			<p class="text-center">
-				No gallery found.
-			</p>
-		{% endfor %}		
 	</div>
-</div>			
+	
+	<div class="row">
+		<div class="col-xs-6 col-sm-8 col-md-6 col-lg-12">
+			<p class="pull-right">
+				{% with total=object_list.count %}
+		    		<strong>{{ total|apnumber|title }}</strong> galler{{ total|pluralize:"y,ies" }} added
+				{% endwith %}
+			</p>
+		</div>
+	</div>
+
+	
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			{% for object in object_list %}
+				{% include "gallery_panel.html" with object=object %}
+			{% empty %}
+				<p class="text-center">
+					No gallery found.
+				</p>
+			{% endfor %}		
+		</div>
+	</div>			
 
 {% endblock %}
