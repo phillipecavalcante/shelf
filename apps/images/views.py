@@ -10,7 +10,6 @@ from django.shortcuts import render, render_to_response
 from apps.images.models import Image
 from apps.images.forms import *
 
-
 def search_names(request):
     if request.method == 'POST':
         search_text = request.POST["search_text"]

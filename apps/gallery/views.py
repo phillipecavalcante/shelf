@@ -3,6 +3,20 @@ from apps.gallery.models import Gallery
 from django.core.urlresolvers import reverse
 from apps.gallery.forms import IndexGalleryForm, GalleryForm
 from apps.images.models import Image
+from django.shortcuts import render_to_response
+
+
+def search_names(request):
+    if request.method == 'POST':
+        search_text = request.POST["search_text"]
+        
+    else:
+        search_text= ""
+
+    object_list = Gallery.objects.filter(name__contains=search_text).order_by('-modified')
+    
+    return render_to_response('gallery/ajax_result.html', {'object_list': object_list})
+
 
 #===============================================================================
 # 

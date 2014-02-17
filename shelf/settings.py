@@ -143,15 +143,14 @@ INSTALLED_APPS = (
     #===========================================================================
     # project
     #===========================================================================
-#     'account',
+    'apps.account',
     'apps.dashboard',
     'apps.images',
     'apps.gallery',
 #     'apps.exemplo',
     'apps.menu',
     'apps.pages',
-    
-#     'website',
+    'apps.website',
 )
 
 

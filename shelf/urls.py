@@ -18,12 +18,12 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     #url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('apps.dashboard.urls', namespace='dashboard')),
+    url(r'^dashboard/', include('apps.dashboard.urls', namespace='dashboard')),
     url(r'^menu/', include('apps.menu.urls', namespace='menu')),
     url(r'^pages/', include('apps.pages.urls', namespace='pages')),
     url(r'^gallery/', include('apps.gallery.urls', namespace='gallery')),
     url(r'^images/', include('apps.images.urls', namespace='images')),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'registration/login.html'}),
     url(r'^accounts/', include('apps.account.urls', namespace='account')),
-#     url(r'^', include('website.urls', namespace='website')),
+    url(r'^', include('apps.website.urls', namespace='website')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

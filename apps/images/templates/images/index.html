@@ -1,49 +1,63 @@
 {% extends "dashboard_template.html" %}
 {% load imagekit %}
 
-
 {% block dashboard_page_header %}
-Images	
+	Images
 {% endblock %}
 
+
 {% block dashboard_page_toolbar %}
-  <div class="container-fluid">
-    
-    <div class="navbar-header">
- 
-      <a class="navbar-brand" href="#">Images</a>
-    </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      
-      
-          {% csrf_token %}
-
-			<input type="search" id="search" name="search" class="form-control" placeholder="Search">      
-    </div>
-  </div>
+<div class="row">
+	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+		<form>   
+			{% csrf_token %}
+			<p>
+				<input type="search" id="search" name="search" class="form-control" placeholder="Search">
+			</p>
+		</form>
+	</div>
+</div>
 
 {% endblock %}
 
 {% block dashboard_page_content %}
+	<div id="searchresults">
 	
-	<div class="row-fluid" id="searchresults">
 		{% include "template_index_form.html" with form=form has_file_field="True" %}
 		
 		{% include "images/ajax_result.html" with object_list=object_list %}
+		
 	</div>
 	
-	
-		
 {% endblock %}
-					<div class="row-fluid">
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-			<h2>Images</h2>
-		</div>
-		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+
+{% block js %}
+<script type="text/javascript">
 			
-			
-		</div>
-		
-	</div>
+			$(function(){
+	
+				$("#search").keyup(function(){
 				
+					$.ajax({
+						type: "POST",
+						url: "{% url "images:search" %}",
+						data: {
+							"search_text": $("#search").val(),
+							"csrfmiddlewaretoken": $("input[name=csrfmiddlewaretoken]").val()
+						},
+						success: searchSuccess,
+						dataType: "html"
+					});	
+				
+				});
+		});
+		
+		function searchSuccess(data, textStatus, jqXHR){
+			$("#searchresults").html(data);
+		}	
+			
+		</script>      
+{% endblock %}
+	

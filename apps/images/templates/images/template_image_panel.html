@@ -1,7 +1,9 @@
 {% load imagekit %}
 
 <div class="panel panel-default">
-
+	<!--
+	<div class="panel-heading"></div>
+      -->        
 	<div id="{{ object.name }}" class="panel-image">
 		{% include "template_modal.html"  %}
 		<a href="#" data-toggle="modal" data-target="#myModal-{{ forloop.counter }}" title="{{ object.name|title }}">
@@ -10,25 +12,12 @@
 	</div>
 	
 	<div class="panel-footer">
-		<p></p>
-		<div class="row">
-			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<p class="text-center">
-					<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-lg text-warning"></i></a>
-				</p>
-			</div>
-			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<p class="text-center {% if object.public %}text-primary{% else %}text-muted{% endif %}">
-					<i title="{{ object.public|yesno:'published, unpublished' }}" class="fa fa-globe fa-2x" ></i>
-				</p>
-			</div>
-			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<p class="text-center">
-					<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
-				</p>
-			</div>
-		</div>
-
+		<strong>{{ object.name|title|default_if_none:"--"|default:"--" }}</strong>	    		
+		{% with published=object.public %}
+			<span class="label {{ published|yesno:'label-primary,label-default' }} pull-right">
+				{{ published|yesno:"published,unpublished" }}
+			</span>
+		{% endwith %}	
     </div>
 	    
 </div>

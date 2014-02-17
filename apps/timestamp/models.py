@@ -6,7 +6,7 @@ class Descriptor(models.Model):
     
     name = models.CharField(max_length=255, unique=True)
     slug = AutoSlugField(populate_from='name')
-    description = models.TextField(default='', blank=True)
+    description = models.TextField(default='', blank=True, null=True)
     url = models.URLField(blank=True, null=True)
     
     def __unicode__(self):

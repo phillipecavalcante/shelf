@@ -5,7 +5,7 @@ from apps.timestamp.models import Timestamp, Descriptor
 
 class AbstractPage(Timestamp, Descriptor):
     
-    menu = models.ForeignKey(Menu, blank=True, null=True, on_delete=models.SET_NULL)
+    menu = models.OneToOneField(Menu, blank=True, null=True, on_delete=models.SET_NULL)
     
     class Meta:
         abstract = True
