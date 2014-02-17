@@ -11,8 +11,8 @@ urlpatterns = patterns('',
                        #========================================================
                        # IMAGES
                        #========================================================
-                       url(r'^a$', IndexView.as_view(), name='index'),
+                       url(r'^$', IndexView.as_view(), name='index'),
                        url(r'^(?P<slug>[\w-]+)$', UpdateView.as_view(), name='update'),
                        url(r'^(?P<slug>[\w-]+)/delete$', DeleteView.as_view(), name='delete'),
-                       url(r'^', include('haystack.urls'), name='search'),
+                       url(r'^search/', 'apps.images.views.search_names' , name='search'),
                       )

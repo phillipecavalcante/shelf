@@ -20,7 +20,10 @@ class ImageIndexForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(ImageIndexForm, self).__init__(*args, **kwargs)
-        
+        #=======================================================================
+        # REQUIRED
+        #=======================================================================
+                
         #=======================================================================
         # LABELS
         #=======================================================================
@@ -44,6 +47,13 @@ class ImageForm(forms.ModelForm):
           
     def __init__(self, *args, **kwargs):
         super(ImageForm, self).__init__(*args, **kwargs)
+        
+        #=======================================================================
+        # REQUIRED
+        #=======================================================================
+        
+        self.fields['description'].required = False
+        
         
         self.fields['name'].label = _('Image name')
         self.fields['public'].label = _('Published')

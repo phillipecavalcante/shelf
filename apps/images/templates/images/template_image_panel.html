@@ -13,8 +13,8 @@
 		<p></p>
 		<div class="row">
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<p class="text-center text-warning">
-					<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-lg"></i></a>
+				<p class="text-center">
+					<a href="{% url 'images:update' object.slug  %}" title="edit"><i class="fa fa-edit fa-lg text-warning"></i></a>
 				</p>
 			</div>
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -23,8 +23,8 @@
 				</p>
 			</div>
 			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<p class="text-center text-danger">
-					<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-lg"></i></a>
+				<p class="text-center">
+					<a href="{% url 'images:delete' object.slug  %}" title="delete"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
 				</p>
 			</div>
 		</div>

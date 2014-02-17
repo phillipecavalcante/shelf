@@ -1,30 +1,49 @@
 {% extends "dashboard_template.html" %}
 {% load imagekit %}
 
-{% block dashboard_title %}
-	Images
+
+{% block dashboard_page_header %}
+Images	
 {% endblock %}
 
-{% block dashboard_content %}
+{% block dashboard_page_toolbar %}
+  <div class="container-fluid">
+    
+    <div class="navbar-header">
+ 
+      <a class="navbar-brand" href="#">Images</a>
+    </div>
 
-	{% include "template_index_form.html" with form=form has_file_field="True" %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
+      
+          {% csrf_token %}
+
+			<input type="search" id="search" name="search" class="form-control" placeholder="Search">      
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block dashboard_page_content %}
 	
-	{% include "template_counter.html" with counter_name="image" plural="s" count=object_list.count %}
-	
-	<hr>
+	<div class="row-fluid" id="searchresults">
+		{% include "template_index_form.html" with form=form has_file_field="True" %}
 		
-	<div class="row">
-		{% for object in object_list %}
-      		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">  	
-				{% include "images/template_image_panel.html" with object=object counter=forloop.counter %}
-			</div>
-  		{% empty %}
-			<p class="lead text-center">
-				No image found.
-			</p>
-		{% endfor %}
-		 
+		{% include "images/ajax_result.html" with object_list=object_list %}
 	</div>
-
+	
+	
+		
 {% endblock %}
+					<div class="row-fluid">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<h2>Images</h2>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			
+			
+		</div>
+		
+	</div>
 				

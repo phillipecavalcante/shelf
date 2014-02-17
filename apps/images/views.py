@@ -3,11 +3,24 @@
 #===============================================================================
 from django.views import generic
 from django.core.urlresolvers import reverse
+from django.shortcuts import render, render_to_response
 #===============================================================================
 # APPS
 #===============================================================================
 from apps.images.models import Image
 from apps.images.forms import *
+
+
+def search_names(request):
+    if request.method == 'POST':
+        search_text = request.POST["search_text"]
+        
+    else:
+        search_text= ""
+
+    object_list = Image.objects.filter(name__contains=search_text).order_by('-modified')
+    
+    return render_to_response('images/ajax_result.html', {'object_list': object_list})
 
 #===============================================================================
 # 

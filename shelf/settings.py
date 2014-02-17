@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     #===========================================================================
     # third
     #===========================================================================
+    'whoosh',
     'haystack',
     'imagekit',
     'mptt',
@@ -195,7 +196,7 @@ THUMBNAIL_PROCESSORS = (
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+        'PATH': os.path.join(os.path.join(PROJECT_PATH,'whoosh')),
     },
 }
 
@@ -205,5 +206,3 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
-
-
