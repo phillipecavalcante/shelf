@@ -1,7 +1,8 @@
 from django.views import generic
 from apps.menu.models import Menu
 from django.core.urlresolvers import reverse
-from apps.pages.models import LinkPage, TextPage, GalleryPage, ProductPage
+from apps.pages.models import *
+from django.shortcuts import render
  
 class IndexView(generic.ListView):
     template_name = 'website/base2.html'
@@ -18,18 +19,24 @@ class IndexView(generic.ListView):
 #         context['productpages'] = ProductPage.objects.all().order_by('-modified')
 #         
 #         return context
-#     
+
+
+#TODO View precisa receber slug para poder retornar conteudo especifico
+def dados(request, slug):
     
-class TextPageDetailView(generic.DetailView):
+    objecta = Menu.objects.get(slug=slug)
+    
+    return render(request, 'website/ajax_result.html', {'object':objecta})
+
+class PageDetailView(generic.DetailView):
     template_name = 'website/page.html'
-    model = TextPage
+    model = Page
 
     def get_context_data(self, **kwargs):
-        context = super(TextPageDetailView, self).get_context_data(**kwargs)
+        context = super(PageDetailView, self).get_context_data(**kwargs)
         context['list'] = Menu.objects.all()
          
         return context
-#     
-#     
-#     def get_success_url(self):
-#         return reverse('website:index', kwargs={self.pk_url_kwarg: self.get_object().pk})
+
+    def get_success_url(self):
+        return reverse('website:index', kwargs={self.slug_url_kwarg:self.object.slug })

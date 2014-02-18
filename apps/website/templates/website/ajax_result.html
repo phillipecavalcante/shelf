@@ -1,0 +1,7 @@
+{% load imagekit %}
+{{ object.page.content|safe }}
+
+{% for img in object.page.gallery.image_set.all %}
+	{% thumbnail '432x267' img.image -- class="img-responsive img-thumbnail" %}
+	{% empty %}
+{% endfor %}

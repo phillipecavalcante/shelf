@@ -1,0 +1,35 @@
+{% include "template_counter.html" with count=object_list.count %}
+
+<div class="row">
+		<div class="col-lg-6">
+            <div class="table-responsive">
+              <table class="table table-hover table-striped tablesorter">
+                <thead>
+                  <tr>
+                    <th>Page <i class="fa fa-sort"></i></th>
+                    <th>Menu <i class="fa fa-sort"></i></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                  <tr>
+                    <td><a href="{% url 'pages:update' object.slug %}">{{ object.name }}</a> </td>
+                    <td>{{ object.menu.name|default:"--" }}</td>
+                    <td><a href="{% url 'pages:delete' object.slug %}"><i class="fa fa-trash-o fa-lg text-danger"></i></a></td>
+                  </tr>
+                {% empty %}
+                	<tr>
+                		<td>
+							No page found.
+						</td>
+                  	</tr>		
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+        </div><!-- /.row -->
+	
+</div>

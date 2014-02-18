@@ -5,11 +5,12 @@
 <div class="row">
 	<div class="col-md-4">
 	<form action="" method="post">{% csrf_token %}
+	
 	    <p class="lead">Are you sure you want to delete "{{ object|title }}"?</p>
 	    
 	    <div class="pull-right">
 			<p class="btn-toolbar">
-				<a href="{% url 'pages:productpage_index' %}" class="btn btn-default">
+				<a href="{% url 'pages:index' %}" class="btn btn-default">
 				  	No
 				</a>
 				<button type="submit" class="btn btn-danger">Yes</button>
@@ -17,6 +18,13 @@
 		</div>
 	</form>
 	</div>
+	
+		{{ object.url }}
+		{{ object.content|safe }}
+		{% for ob in object.gallery.image_set.all %}
+			{{ ob.image }}
+			{% empty %}
+		{% endfor %}
 </div>
 	
 

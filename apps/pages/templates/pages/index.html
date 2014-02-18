@@ -1,17 +1,46 @@
 {% extends "dashboard_template.html" %}
 
-
-{% block dashboard_title %}
-	<h1>
+{% block dashboard_page_header %}
 	Pages
-	<p class="lead">Create a page and add it to menu.</p>
-</h1>
 {% endblock %}
-            
-{% block dashboard_content %}
 
-<a href="{% url 'pages:linkpage_index' %}">Link Pages</a>
-<a href="{% url 'pages:textpage_index' %}">Text Pages</a>
-<a href="{% url 'pages:gallerypage_index' %}">Gallery Pages</a>
-<a href="{% url 'pages:productpage_index' %}">Product Pages</a>
+{% block dashboard_page_content %}
+	
+	
+	<div id="searchresults">
+	
+		{% include "template_index_form.html" with form=form has_file_field="False" %}
+		
+		{% include "pages/ajax_result.html" with object_list=object_list %}
+		
+	</div>
+{% endblock %}
+
+
+{% block js %}
+	<script type="text/javascript">
+			
+			$(function(){
+	
+				$("#search").keyup(function(){
+				
+					$.ajax({
+						type: "POST",
+						url: "{% url "pages:search" %}",
+						data: {
+							"search_text": $("#search").val(),
+							"csrfmiddlewaretoken": $("input[name=csrfmiddlewaretoken]").val()
+						},
+						success: searchSuccess,
+						dataType: "html"
+					});	
+				
+				});
+		});
+		
+		function searchSuccess(data, textStatus, jqXHR){
+			$("#searchresults").html(data);
+		}	
+			
+	</script>      
 {% endblock %}

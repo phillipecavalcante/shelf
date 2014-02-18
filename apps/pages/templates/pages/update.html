@@ -8,3 +8,12 @@
 </form>
 
 {% endblock %}
+
+
+{% block js %}
+		<script src="{{ STATIC_URL }}scripts/ckeditor/ckeditor.js"></script>
+		<script>
+		
+			CKEDITOR.replace( 'id_content');
+		</script> 
+{% endblock %}

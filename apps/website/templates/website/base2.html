@@ -1,5 +1,6 @@
 {% load webdesign %}
 {% load url from future %}
+{% load imagekit %}
 
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,8 @@
 		<!-- STYLES -->
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		
+   
 	</head>
 	<body>	
 		
@@ -23,7 +26,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			    <ul class="nav navbar-nav">
 				{% for item in list %}
-					<li><a href="{% url 'website:textpage_retrieve' 'primeira-pagina' %}">{{ item.name }}</a></li>
+					<li ><a id="{{item.name}}" href="#">{{ item.name }}</a></li>
 				{% endfor %}
 				</ul>
 			</div>
@@ -33,7 +36,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				{% block content %}
-					{% lorem 2 p %}
+					<div id="result"></div>
 				{% endblock %}
 			</div>
 		</div>
@@ -57,9 +60,34 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 		<script src="{{ STATIC_URL }}scripts/ckeditor/ckeditor.js"></script>
+
+ 
 		<script>
-			CKEDITOR.replace('id_content');
-		</script>        
+		$( "#teste" ).click(function() {
+		 	
+		 	$.get( "{% url "website:dados" "teste" %}", function( data ) {
+  				$( "#result" ).html( data );
+ 
+			});
+		 	
+		 	
+		});
+		$( "#outro" ).click(function() { 
+		 	
+		 	$.get( "{% url "website:dados" "outro" %}", function( data ) {
+  				$( "#result" ).html( data );
+ 
+			});
+		 	
+		 	
+		});
+		</script>
+		{% block js %}
+		  		<script>
+					CKEDITOR.replace('id_content');
+		
+				</script>  
+		{% endblock %} 
             
 	</body>
 </html>
