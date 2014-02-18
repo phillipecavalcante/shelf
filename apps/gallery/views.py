@@ -7,9 +7,9 @@ from django.shortcuts import render_to_response
 
 
 def search_names(request):
+
     if request.method == 'POST':
         search_text = request.POST["search_text"]
-        
     else:
         search_text= ""
 
